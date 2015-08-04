@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:go="http://xmlns.jcp.org/jsf/composite/go"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Tareas"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <!-- Search form -->
+            <h:form id="formfilter" styleClass="search-form" rendered="false">
+
+                <go:filterView id="panelFilter0" titleIconClass="fa fa-inbox page-header-icon hidden-xs"
+                               showSearchBar="true"
+                               controllerMBean="#{studyCaseController}" 
+                               vista="#{studyCaseController.vista}"
+                               filterHelper="#{studyCaseController.filterHelper}" 
+                               canChangeFilters="true"
+                               update=":form :formfilter:panelFilter0:panelFilter"
+                               vistaControllerBackOutcome="/cruds/study/List" rendered="true"/>
+            </h:form>
+
+            <h:form id="form">
+
+                <h:outputText escape="false" value="#{bundle.ListStudyCaseEmpty}" rendered="#{studyCaseController.items.rowCount == 0}"/>
+
+                <h:panelGroup layout="block" styleClass="table-responsive table-scrollable table-scrollable-borderless"
+                              rendered="#{studyCaseController.items.rowCount > 0}">
+
+                    <div class="btn-group">
+                        <go:paginatorCounts controllerMBean="#{studyCaseController}"/>
+                    </div>
+                   <div class="pull-right">
+                    <go:paginatorBtnsBt controllerMBean="#{studyCaseController}" update="@(form)"/>    
+                    </div>
+
+                    <h:dataTable value="#{studyCaseController.items}" var="item" 
+                                 styleClass="table table-hover table-light table-responsive">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRequest}"/>
+                        </h:column>
+
+
+
+
+                        <h:column rendered="#{UserSessionBean.current.technical or UserSessionBean.current.admin}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudyCaseTitle_assignee}"/>
+                            </f:facet>
+                            <h:panelGroup rendered="#{not empty item.assignee}">
+                                 <img class="user-pic" src="#{item.assignee.picture}" />
+                            &nbsp;
+                            <h:outputText value="#{item.assignee.capitalName}"/>
+                            </h:panelGroup>
+                             <h:panelGroup rendered="#{empty item.assignee}">
+                               <h:outputText value="Sin Asignar"/>
+                            </h:panelGroup>
+                           
+                        </h:column>
+
+                        <h:column rendered="#{UserSessionBean.current.radiologist or UserSessionBean.current.admin}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudyCaseTitle_createdByUser}"/>
+                            </f:facet>
+
+                            <img class="user-pic" src="#{item.createdByUser.picture}" />&nbsp;
+                            <h:outputText value="#{item.createdByUser.capitalName}"/>
+                        </h:column>
+
+
+
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudyCaseTitle_patient}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.patientFk.patName}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo exámen"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rxType}" title="studyUid:#{item.studyUid}"/>
+                        </h:column>
+
+
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudyCaseTitle_priority}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.priority}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudyCaseTitle_createdAt}"/>
+                            </f:facet>
+                            <h:outputText id="fechaCreacion" value="#{studyCaseController.formatShortDate(item.createdAt)}" />
+                            <p:tooltip for="fechaCreacion" value="Creado: #{studyCaseController.formatDate(item.createdAt)} (#{studyCaseController.prettyDate(item.createdAt)})"  />
+
+
+                        </h:column>
+
+
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <span class="label ticket-label" style="background: \##{item.idEstado.backgroundColor}; color: \##{item.idEstado.fontColor};">
+                                #{item.idEstado.nombre}
+                            </span>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <div class="task-config">
+                                <div class="task-config-btn btn-group">
+                                    <a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <h:commandLink action="#{studyCaseController.prepareView(item)}"
+                                                           rendered="#{UserSessionBean.current.radiologist}"
+                                                           styleClass="">
+                                                <i class="glyphicon glyphicon-list-alt"></i> Abrir
+                                            </h:commandLink>
+                                        </li>
+
+                                        <li>
+                                            <h:commandLink action="#{studyCaseController.assignMe(item)}" 
+                                                           rendered="#{empty item.assignee and UserSessionBean.current.radiologist}"
+                                                           >
+                                                <i class="glyphicon glyphicon-fire"></i> Asignarme la tarea
+                                            </h:commandLink>
+                                        </li>
+                                        
+                                        <li>
+                                            <h:commandLink action="#{studyCaseController.prepareEdit(item)}"
+                                                           rendered="#{UserSessionBean.current.technical}"
+                                                           styleClass="">
+                                                <i class="glyphicon glyphicon-pencil"></i> Ver
+                                            </h:commandLink>
+                                        </li>
+                                        
+                                       <li>
+                                            <h:commandLink action="#{studyCaseController.destroy}" 
+                                                           rendered="#{UserSessionBean.current.admin}"
+                                                           styleClass="btn-danger">
+                                                <i class="glyphicon glyphicon-remove"></i> Eliminar
+                                            </h:commandLink>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </h:column>
+
+
+                    </h:dataTable>
+
+                    <br/>
+                    <div class="pull-right">
+                    <go:paginatorBtnsBt controllerMBean="#{studyCaseController}" update="@(form)"/>    
+                    </div>
+                    
+
+
+                    <br/><br/><br/>
+
+                </h:panelGroup>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

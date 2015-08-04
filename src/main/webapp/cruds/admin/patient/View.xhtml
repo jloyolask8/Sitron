@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:go="http://xmlns.jcp.org/jsf/composite/go"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Ficha del Paciente"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:messages autoUpdate="true" globalOnly="true"/>
+            <h:form>
+
+
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toppad" >
+
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">#{patientController.selected.patName}   </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-3 " align="center"> 
+                                        <img alt="Patient Pic" 
+                                             src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"/> </div>
+
+                                    <div class=" col-md-9 col-lg-9 "> 
+                                        <table class="table table-user-information">
+                                            <tbody>
+
+
+
+
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patId}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patId}" title="#{bundle.ViewPatientTitle_patId}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patIName}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patIName}" title="#{bundle.ViewPatientTitle_patIName}"/></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patName}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patName}" title="#{bundle.ViewPatientTitle_patName}"/>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patPName}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patPName}" title="#{bundle.ViewPatientTitle_patPName}"/>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patSex}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patSex}" title="#{bundle.ViewPatientTitle_patSex}"/>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_patBirthdate}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.patBirthdate}" title="#{bundle.ViewPatientTitle_patBirthdate}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_createdTime}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.createdTime}" title="#{bundle.ViewPatientTitle_createdTime}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPatientLabel_updatedTime}"/></td>
+                                                    <td><h:outputText value="#{patientController.selected.updatedTime}" title="#{bundle.ViewPatientTitle_updatedTime}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                                <span class="pull-right">
+
+
+                                    <h:link outcome="Edit" class="btn btn-sm btn-warning">
+                                        <i class="glyphicon glyphicon-edit"></i> #{bundle.ViewPatientEditLink}
+                                    </h:link>
+                                    &nbsp;
+                                    <h:commandLink action="#{patientController.destroyAndView}" title="Remove this patient"
+                                                   styleClass="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-remove"></i> Delete
+                                    </h:commandLink>
+
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Estudios Radiologicos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <go:studiesTable list="#{patientController.selected.studyList}"/>
+                    </div>
+                </div>
+
+                <br/>
+                <h2></h2>
+                <br/>
+
+
+
+
+                <br />
+
+                <br />
+                <br />
+
+                <br />
+                <h:commandLink action="#{patientController.prepareCreate}" value="#{bundle.ViewPatientCreateLink}" />
+                <br />
+                <h:commandLink action="#{patientController.prepareList}" value="#{bundle.ViewPatientShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPatientIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

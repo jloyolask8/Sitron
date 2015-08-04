@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditUsuarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+         
+
+            <h:form id="myAccountForm">
+                <div class="profile-full-name">
+                    <span class="text-semibold">Perfil de </span>#{UserSessionBean.current.capitalName}
+                </div>
+                <div class="profile-row">
+
+                    <div class="right-col">
+
+                        <hr class="profile-content-hr no-grid-gutter-h"/>
+
+                        <div class="profile-content">
+
+                            <ul id="profile-tabs" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#profile-tabs-datos" data-toggle="tab">Datos Personales</a>
+                                </li>
+                                <li>
+                                    <a href="#profile-tabs-sistema" data-toggle="tab">Datos del Sistema</a>
+                                </li>
+                                <li>
+                                    <a href="#profile-tabs-preferencias" data-toggle="tab">Preferencias</a>
+                                </li>
+                                <li>
+                                    <a href="#profile-tabs-notificaciones" data-toggle="tab">Notificaciones</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content tab-content-bordered panel-padding">
+                                <div class="tab-pane panel no-padding no-border fade in active" id="profile-tabs-datos">
+                                    <div class="row">
+
+                                        <div class="col-sm-9 col-lg-6">
+
+                                            <div class="panel panel-transparent form-horizontal">
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">Rut</label>
+                                                        <div class="col-sm-8">
+                                                            <p class="form-control-static">
+                                                                <h:inputText id="rut" value="#{UserSessionBean.current.rut}" title="Rut del usuario"
+                                                                             styleClass="form-control"
+                                                                             validator="#{inputValidationBean.validarRut}" 
+                                                                             required="true" requiredMessage="El Rut es requerido.">
+                                                                </h:inputText>
+                                                                <p class="help-block">Formato Rut: Con puntos y guión.</p>
+                                                                <h:message for="rut" errorClass="text-danger"/>
+                                                            </p>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="nombres">#{bundle.EditUsuarioLabel_nombres}</label>
+                                                        <div class="col-sm-8">
+                                                            <h:inputText id="nombres" value="#{UserSessionBean.current.nombres}" 
+                                                                         styleClass="form-control"
+                                                                         title="#{bundle.EditUsuarioTitle_nombres}" size="40">
+                                                                <pe:keyFilter mask="alphanum"/>
+                                                            </h:inputText>
+                                                            <h:message for="nombres" errorClass="text-danger"/>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="apellidos">#{bundle.EditUsuarioLabel_apellidos}</label>
+                                                        <div class="col-sm-8">
+                                                            <h:inputText id="apellidos" value="#{UserSessionBean.current.apellidos}" 
+                                                                         styleClass="form-control"
+                                                                         title="#{bundle.EditUsuarioTitle_apellidos}" size="40">
+                                                                <pe:keyFilter mask="alphanum"/>
+                                                            </h:inputText>
+                                                            <h:message for="apellidos" errorClass="text-danger"/>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="email">#{bundle.EditUsuarioLabel_email}</label>
+                                                        <div class="col-sm-8">
+                                                            <h:inputText id="email" value="#{UserSessionBean.current.email}" 
+                                                                         styleClass="form-control"
+                                                                         title="#{bundle.EditUsuarioTitle_email}" size="40"
+                                                                         validator="#{inputValidationBean.validarEmail}">
+                                                                <pe:keyFilter mask="email"/>
+                                                            </h:inputText>
+                                                            <h:message for="email" errorClass="text-danger"/>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="telFijo">#{bundle.EditUsuarioLabel_telFijo}</label>
+                                                        <div class="col-sm-8">
+                                                            <h:inputText id="telFijo" value="#{UserSessionBean.current.telFijo}" 
+                                                                         styleClass="form-control"
+                                                                         title="#{bundle.EditUsuarioTitle_telFijo}" size="40">
+                                                                <pe:keyFilter mask="num"/>
+                                                            </h:inputText>
+                                                            <h:message for="telFijo" errorClass="text-danger"/>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="telMovil">#{bundle.EditUsuarioLabel_telMovil}</label>
+                                                        <div class="col-sm-8">
+                                                            <h:inputText id="telMovil" value="#{UserSessionBean.current.telMovil}" 
+                                                                         styleClass="form-control"
+                                                                         title="#{bundle.EditUsuarioTitle_telMovil}" size="40">
+                                                                <pe:keyFilter mask="num"/>
+                                                            </h:inputText>
+                                                            <h:message for="telMovil" errorClass="text-danger"/>
+                                                        </div>
+                                                    </div> <!-- / .form-group -->
+                                                </div></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="profile-tabs-sistema">
+
+                                    <div class="row">
+
+                                        <div class="col-sm-9 col-lg-6">
+                                            <div class="panel panel-transparent form-horizontal">
+                                                <div class="panel-body">
+
+
+                                                    <div class="form-group">
+
+                                                        <label class="col-sm-4 control-label">
+                                                            <h:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario"/> 
+                                                        </label>
+
+                                                        <div class="col-sm-8">
+                                                            <h:outputText id="idUsuario" value="#{UserSessionBean.current.idUsuario}" /> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <label class="col-sm-4 control-label">
+                                                            <h:outputLabel value="#{bundle.EditUsuarioLabel_activo}" for="activo"/> 
+                                                        </label>
+
+                                                        <div class="col-sm-8">
+                                                            <p:selectBooleanButton id="activo" value="#{UserSessionBean.current.activo}" offLabel="No" onLabel="Si"
+                                                                                   required="true" requiredMessage="Estado Activo no puede ser null.">
+                                                            </p:selectBooleanButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{bundle.EditUsuarioLabel_supervisor}" for="supervisor"/> 
+
+                                                        <div class="col-sm-8">
+                                                            <h:outputText id="supervisor" value="#{empty UserSessionBean.current.supervisor ? 'no tiene':UserSessionBean.current.supervisor}"/>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <h6 class="text-light-gray text-semibold" style="margin:20px 0 10px 0;">#{bundle.EditUsuarioLabel_rol}</h6>
+
+
+                                                    <div class="form-group">
+
+
+                                                        <h:selectOneRadio id="rol" styleClass="form-control"  value="#{usuarioController.selected.rol}"
+                                                                          required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_rol}">
+                                                            <f:selectItem itemLabel="Technical" itemValue="Technical"></f:selectItem>
+                                                            <f:selectItem itemLabel="Radiologist" itemValue="Radiologist"></f:selectItem>
+                                                            <f:selectItem itemLabel="System Admin" itemValue="admin"></f:selectItem>
+                                                        </h:selectOneRadio>
+
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="profile-tabs-notificaciones">
+                                    <div class="panel panel-transparent form-horizontal">
+                                        <div class="panel-body">
+
+                                            <h3 class="text-light-gray text-semibold text-xs" style="margin:20px 0 10px 0;">Habilitar</h3>
+
+                                            <div class="row form-group">
+
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="emailNotificationsEnabled"
+                                                                             value="#{UserSessionBean.current.emailNotificationsEnabled}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="emailNotificationsEnabled">
+                                                        <h:outputText  value="Notificaciones por email"/>
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="desktopNotificationsEnabled" disabled="true"
+                                                                             value="#{UserSessionBean.current.desktopNotificationsEnabled}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="desktopNotificationsEnabled">
+                                                        <h:outputText  value="Notificaciones en el escritorio"/>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <hr class="panel-wide"></hr>
+                                            <h3 class="text-light-gray text-semibold text-xs" style="margin:20px 0 10px 0;">Notificarme cuando</h3>
+
+                                            <div class="row form-group">
+
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="notifyWhenTicketAssigned"
+                                                                             value="#{UserSessionBean.current.notifyWhenTicketAssigned}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="notifyWhenTicketAssigned">
+                                                        <h:outputText  value="se me asigne un caso"/>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="notifyWhenNewTicketInGroup"
+                                                                             value="#{UserSessionBean.current.notifyWhenNewTicketInGroup}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="notifyWhenNewTicketInGroup">
+                                                        <h:outputText  value="llegue un caso a mis grupos"/>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="notifyWhenTicketIsUpdated"
+                                                                             value="#{UserSessionBean.current.notifyWhenTicketIsUpdated}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="notifyWhenTicketIsUpdated">
+                                                        <h:outputText  value="un caso sea actualizado"/>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:selectBooleanCheckbox id="notifyWhenTicketAlert"
+                                                                             value="#{UserSessionBean.current.notifyWhenTicketAlert}" >
+                                                    </h:selectBooleanCheckbox>
+                                                    <label class="control-label" for="notifyWhenTicketAlert">
+                                                        <h:outputText  value="un caso cambie estado de alerta"/>
+                                                    </label>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div class="btn-group">
+                            <p:commandLink action="#{casoController.prepareList}" 
+                                           styleClass="btn btn-default btn-flat" 
+                                           ajax="false" immediate="true"
+                                           onclick="jQuery(this).addClass('ui-state-disabled');
+                                                   jQuery(this).children().addClass('fa fa-refresh fa-spin')">
+                                <i class="fa fa-chevron-left"></i> #{bundle.goBack}
+                            </p:commandLink>
+                        </div>
+
+                        <div class="btn-group">
+                            <p:commandLink action="#{UserSessionBean.updateUsuario()}" 
+                                           ajax="false"
+                                           styleClass="btn btn-primary btn-flat" 
+                                           onclick="jQuery(this).addClass('ui-state-disabled');
+                                                   jQuery(this).children().addClass('fa fa-refresh fa-spin')">
+                                <i class="fa fa-disk"></i> #{bundle.EditUsuarioSaveLink}
+                            </p:commandLink>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_preferFirmaEnabled}" for="preferFirmaEnabled" />
+                    <h:inputText id="preferFirmaEnabled" styleClass="form-control" value="#{usuarioController.selected.preferFirmaEnabled}" title="#{bundle.EditUsuarioTitle_preferFirmaEnabled}" />
+                    <h:message for="preferFirmaEnabled"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_firma}" for="firma" />
+                    <h:inputText id="firma" styleClass="form-control" value="#{usuarioController.selected.firma}" title="#{bundle.EditUsuarioTitle_firma}" />
+                    <h:message for="firma"/>
+
+
+
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_supervisor}" for="supervisorx" />
+                    <h:selectOneMenu id="supervisorx" value="#{usuarioController.selected.supervisor}" title="#{bundle.EditUsuarioTitle_supervisor}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:message for="supervisorx"/>
+                </h:panelGrid>
+                <h:commandLink action="#{usuarioController.update}" value="#{bundle.EditUsuarioSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditUsuarioViewLink}"/>
+                <br />
+                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.EditUsuarioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditUsuarioIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

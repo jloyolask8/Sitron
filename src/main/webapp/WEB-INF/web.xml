@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+     <listener>
+        <listener-class>com.sitron.persistence.webapp.AppStarter</listener-class>
+    </listener>
+       
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    
+    <!-- Auth0 Configuration for sitron account -->
+    <context-param>
+        <param-name>auth0.client_id</param-name>
+        <param-value>8DAHXE7SkekQ2dIZLnjsa4RzHjKVycNH</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>auth0.client_secret</param-name>
+        <param-value>O76NdNQNkt5T-NYFZ7FhRQ-Nped7sKMArzAKT6JuJD4lW8Q3_pBMAYasI021zU4e</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>auth0.domain</param-name>
+        <param-value>sitron.auth0.com</param-value>
+    </context-param>
+    
+    <!--servlets--> 
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>RedirectCallback</servlet-name>
+        <servlet-class>com.sitron.persistence.webapp.Auth0ServletCallback</servlet-class>
+        <init-param>
+            <param-name>auth0.redirect_on_success</param-name>
+            <param-value>/cruds/dashboard.xhtml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>auth0.redirect_on_error</param-name>
+            <param-value>/login</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.sitron.persistence.webapp.LoginServlet</servlet-class>
+    </servlet>
+    <!--servlet-mappings-->
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectCallback</servlet-name>
+        <url-pattern>/callback</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- Filters -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.auth0.Auth0Filter</filter-class>
+        <init-param>
+            <param-name>auth0.redirect_on_authentication_error</param-name>
+            <param-value>/login</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>cruds/*.xhtml</url-pattern>
+        <url-pattern>/cruds/*</url-pattern>        
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>com.webcode.filters.CorsFilter</filter-class>
+         <init-param>
+            <param-name>Access-Control-Allow-Origin</param-name>
+            <param-value>www.godesk.cl</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Access-Control-Allow-Credentials</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Access-Control-Allow-Methods</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Access-Control-Allow-Headers</param-name>
+            <param-value>Content-Type, Accept, authorization, token</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>com.webcode.filters.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>characterEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
+    
+    <session-config>
+        <session-timeout>
+            45
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app>

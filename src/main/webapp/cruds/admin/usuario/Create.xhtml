@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUsuarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_idUsuario}" for="idUsuario" />
+                    <h:inputText id="idUsuario" styleClass="form-control" value="#{usuarioController.selected.idUsuario}" title="#{bundle.CreateUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_idUsuario}"/>
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_nombres}" for="nombres" />
+                    <h:inputText id="nombres" styleClass="form-control" value="#{usuarioController.selected.nombres}" title="#{bundle.CreateUsuarioTitle_nombres}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_apellidos}" for="apellidos" />
+                    <h:inputText id="apellidos" styleClass="form-control" value="#{usuarioController.selected.apellidos}" title="#{bundle.CreateUsuarioTitle_apellidos}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
+                    <h:inputText id="email" styleClass="form-control" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_telFijo}" for="telFijo" />
+                    <h:inputText id="telFijo" styleClass="form-control" value="#{usuarioController.selected.telFijo}" title="#{bundle.CreateUsuarioTitle_telFijo}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_telMovil}" for="telMovil" />
+                    <h:inputText id="telMovil" styleClass="form-control" value="#{usuarioController.selected.telMovil}" title="#{bundle.CreateUsuarioTitle_telMovil}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_activo}" for="activo" />
+                    <h:inputText id="activo" styleClass="form-control" value="#{usuarioController.selected.activo}" title="#{bundle.CreateUsuarioTitle_activo}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_activo}"/>
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_pass}" for="pass" />
+                    <h:inputText id="pass" styleClass="form-control" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_pass}"/>
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_rut}" for="rut" />
+                    <h:inputText id="rut" styleClass="form-control" value="#{usuarioController.selected.rut}" title="#{bundle.CreateUsuarioTitle_rut}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_editable}" for="editable" />
+                    <h:inputText id="editable" styleClass="form-control" value="#{usuarioController.selected.editable}" title="#{bundle.CreateUsuarioTitle_editable}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_editable}"/>
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_theme}" for="theme" />
+                    <h:inputText id="theme" styleClass="form-control" value="#{usuarioController.selected.theme}" title="#{bundle.CreateUsuarioTitle_theme}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_pageLayoutState}" for="pageLayoutState" />
+                    <h:inputText id="pageLayoutState" styleClass="form-control" value="#{usuarioController.selected.pageLayoutState}" title="#{bundle.CreateUsuarioTitle_pageLayoutState}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_notifyWhenTicketAssigned}" for="notifyWhenTicketAssigned" />
+                    <h:inputText id="notifyWhenTicketAssigned" styleClass="form-control" value="#{usuarioController.selected.notifyWhenTicketAssigned}" title="#{bundle.CreateUsuarioTitle_notifyWhenTicketAssigned}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_notifyWhenNewTicketInGroup}" for="notifyWhenNewTicketInGroup" />
+                    <h:inputText id="notifyWhenNewTicketInGroup" styleClass="form-control" value="#{usuarioController.selected.notifyWhenNewTicketInGroup}" title="#{bundle.CreateUsuarioTitle_notifyWhenNewTicketInGroup}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_notifyWhenTicketAlert}" for="notifyWhenTicketAlert" />
+                    <h:inputText id="notifyWhenTicketAlert" styleClass="form-control" value="#{usuarioController.selected.notifyWhenTicketAlert}" title="#{bundle.CreateUsuarioTitle_notifyWhenTicketAlert}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_notifyWhenTicketIsUpdated}" for="notifyWhenTicketIsUpdated" />
+                    <h:inputText id="notifyWhenTicketIsUpdated" styleClass="form-control" value="#{usuarioController.selected.notifyWhenTicketIsUpdated}" title="#{bundle.CreateUsuarioTitle_notifyWhenTicketIsUpdated}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_emailNotificationsEnabled}" for="emailNotificationsEnabled" />
+                    <h:inputText id="emailNotificationsEnabled" styleClass="form-control" value="#{usuarioController.selected.emailNotificationsEnabled}" title="#{bundle.CreateUsuarioTitle_emailNotificationsEnabled}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_desktopNotificationsEnabled}" for="desktopNotificationsEnabled" />
+                    <h:inputText id="desktopNotificationsEnabled" styleClass="form-control" value="#{usuarioController.selected.desktopNotificationsEnabled}" title="#{bundle.CreateUsuarioTitle_desktopNotificationsEnabled}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_preferFirmaEnabled}" for="preferFirmaEnabled" />
+                    <h:inputText id="preferFirmaEnabled" styleClass="form-control" value="#{usuarioController.selected.preferFirmaEnabled}" title="#{bundle.CreateUsuarioTitle_preferFirmaEnabled}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_firma}" for="firma" />
+                    <h:inputText id="firma" styleClass="form-control" value="#{usuarioController.selected.firma}" title="#{bundle.CreateUsuarioTitle_firma}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_templateTheme}" for="templateTheme" />
+                    <h:inputText id="templateTheme" styleClass="form-control" value="#{usuarioController.selected.templateTheme}" title="#{bundle.CreateUsuarioTitle_templateTheme}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_mainMenuChangepos}" for="mainMenuChangepos" />
+                    <h:inputText id="mainMenuChangepos" styleClass="form-control" value="#{usuarioController.selected.mainMenuChangepos}" title="#{bundle.CreateUsuarioTitle_mainMenuChangepos}" />
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
+                    <h:inputText id="rol" styleClass="form-control" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}"/>
+                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_supervisor}" for="supervisor" />
+                    <h:selectOneMenu id="supervisor" value="#{usuarioController.selected.supervisor}" title="#{bundle.CreateUsuarioTitle_supervisor}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{usuarioController.create}" value="#{bundle.CreateUsuarioSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.CreateUsuarioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUsuarioIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

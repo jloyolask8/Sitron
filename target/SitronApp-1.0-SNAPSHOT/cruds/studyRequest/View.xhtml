@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{studyCaseController.selected.subject} ##{studyCaseController.selected.idRequest}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+
+
+
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-5 col-md-4 col-lg-3">
+
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tabimg">
+                                            Imágenes dicom </a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tabimg" class="tab-pane active">
+                                        <h:panelGroup layout="block"  rendered="#{empty studyCaseController.selected.images}">
+                                            La solicitud no contiene ninguna imagen dicom
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block"  rendered="#{not empty studyCaseController.selected.images}">
+
+                                            <ul class="list-inline blog-images">
+
+                                                <ui:repeat value="#{studyCaseController.selected.images}" var="instance">
+                                                    <li>
+                                                        <!--#{facesContext.externalContext.requestContextPath}-->
+                                                        <h:graphicImage height="80" width="80" rendered="#{UserSessionBean.current.radiologist or UserSessionBean.current.admin}"
+                                                                        onclick="downloadAndView('www.godesk.cl:8089', '#{instance.seriesFk.studyFk.studyIuid}', '#{instance.seriesFk.seriesIuid}',
+                                                                                        '#{instance.sopIuid}', 'application/dicom')"
+                                                                        url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+                                                    </li>
+
+                                                </ui:repeat>
+                                            </ul>
+
+                                            <p:lightBox styleClass="imagebox" id="lighbox1" rendered="#{UserSessionBean.current.technical}">
+                                                <ui:repeat value="#{studyCaseController.selected.images}" var="instance">
+                                                    <h:outputLink style="margin: 1px;"
+                                                                  value="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}">
+
+                                                        <h:graphicImage height="50" width="50"
+                                                                        url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+
+                                                    </h:outputLink>
+                                                </ui:repeat>
+                                            </p:lightBox>
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tabtarea">
+                                            Tarea </a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#tabpac">
+                                            Paciente </a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tabtarea" class="tab-pane active">
+
+                                        <form role="form">
+                                            <div class="form-body">
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_subject}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.subject}" /> </strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_description}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{(empty studyCaseController.selected.description) ? 'sin descripción':studyCaseController.selected.description}" /> </strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_rxType}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.rxType}" /> </strong>
+                                                    </div>
+                                                </div>
+
+<!--                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="Estudio"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.studyPk.studyDesc}" /> </strong>
+                                                    </div>
+                                                </div>-->
+
+<!--                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="Serie"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.serieSelected.seriesDesc}" /> </strong>
+                                                    </div>
+                                                </div>-->
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_createdAt}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  
+                                                            <h:outputText value="#{studyCaseController.selected.createdAt}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                            </h:outputText>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_priority}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.priority}"/></strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_createdByUser}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> 
+                                                            <h:outputText value="#{studyCaseController.selected.createdByUser.capitalName}"/>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_assignee}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.assignee.capitalName}" /> </strong>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </form>
+
+
+
+                                    </div>
+
+                                    <div id="tabpac" class="tab-pane">
+
+                                        <form role="form">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patId}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.patientFk.patId}" /> </strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patIName}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> <h:outputText value="#{studyCaseController.selected.patientFk.patIName}" /></strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patName}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> <h:outputText value="#{studyCaseController.selected.patientFk.patName}" /></strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patPName}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> <h:outputText value="#{studyCaseController.selected.patientFk.patPName}" /></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patBirthdate}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.patientFk.patBirthdate}" /></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_patSex}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> <h:outputText value="#{studyCaseController.selected.patientFk.patSex}" /></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_createdTime}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong> <h:outputText value="#{studyCaseController.selected.patientFk.createdTime}" title="#{bundle.ViewPatientTitle_createdTime}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                            </h:outputText></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="#{bundle.ViewPatientLabel_updatedTime}"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.patientFk.updatedTime}" title="#{bundle.ViewPatientTitle_updatedTime}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                            </h:outputText></strong>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <!--end col-md-3-->
+
+                        <div class="col-sm-7 col-md-8 col-lg-9">
+
+
+
+                            <h:panelGroup layout="block" rendered="#{not empty studyCaseController.selected.images}">
+                                <div class="portlet light bg-inverse">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-puzzle font-blue-dark"></i>
+                                            <span class="caption-subject bold font-blue-dark uppercase">
+                                                DICOM VIEWER </span>
+
+                                        </div>
+
+
+
+                                        <div class="tools">
+                                            
+
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-sm" href="javascript:;" data-toggle="dropdown" aria-expanded="true"><span class="md-click-circle md-click-animate" style="height: 86px; width: 86px; top: -30px; left: 26.015625px;"></span>
+                                                    <i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li>
+                                                        <a id="save" href="javascript:;">
+                                                            <i class="fa fa-image"></i> Guardar imagen como </a>
+                                                    </li>
+                                                    <h:panelGroup rendered = "#{!studyCaseController.isMobileClient()}" >
+                                                        <li class="divider">
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;" data-toggle="modal" data-target="#desktopViewerModal">
+                                                                <i class="fa fa-download"></i> Bajar Estudio completo </a>
+                                                        </li>
+                                                    </h:panelGroup>
+                                                </ul>
+                                            </div>
+
+                                            <a href="" class="collapse">
+                                            </a>
+
+                                            <a href="" class="reload">
+                                            </a>
+                                            <a href="" class="fullscreen">
+                                            </a>
+
+                                            <a href="" class="remove">
+                                            </a>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body" id="dicomviewerportlet">
+
+                                        <div class="text-center">
+
+                                            <div class="row">
+                                                
+                                                <h:panelGroup rendered = "#{studyCaseController.isMobileClient()}" >
+                                                    <div class="dropdown">
+                                                        <button id="toolSelector" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select tool <span class="caret"></span></button>
+                                                        <ul class="dropdown-menu">
+                                                            <li class="dropdown-header">Tools</li>
+                                                            <li><a id="enableWindowLevelTool" class="list-group-item">WW/WC</a></li>
+                                                            <li><a id="pan" class="list-group-item">Pan</a></li>
+                                                            <li><a id="rotate" class="list-group-item">Rotate</a></li>
+                                                            <li><a id="zoom" class="list-group-item">Zoom (pinch)</a></li>
+                                                            <li><a id="zoomDrag" class="list-group-item">Zoom (drag)</a></li>
+                                                            <li><a id="length" class="list-group-item">Length</a></li>
+                                                            <li><a id="probe" class="list-group-item">Probe</a></li>
+                                                            <li><a id="circleroi" class="list-group-item">Ellipse</a></li>
+                                                            <li><a id="rectangleroi" class="list-group-item">Rectangle</a></li>
+                                                            <li><a id="angle" class="list-group-item">Angle</a></li>
+                                                        </ul>
+                                                        <a id="clearToolData" class="btn btn-secondary">Clear Tools</a>
+                                                        <a id="resetViewport" class="btn btn-secondary">Reset View</a>
+                                                        <a id="fullscreen" class="btn btn-secondary">Fullscreen</a>
+                                                    </div>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup rendered = "#{!studyCaseController.isMobileClient()}" >
+                                                    <div class="btn-group">
+                                                        <!-- WW/WL -->
+                                                        <button id="enableWindowLevelTool" type="button" class="btn btn-sm btn-default" 
+                                                                data-container="body" data-toggle="tooltip" 
+                                                                data-placement="bottom" title="WW/WC" data-original-title="WW/WC">
+                                                            <span class="fa fa-sun-o"></span>
+                                                        </button>
+
+                                                        <!-- Zoom -->
+                                                        <button id="zoom" type="button" class="btn btn-sm btn-default" data-container="body" 
+                                                                data-toggle="tooltip" data-placement="bottom" title="Zoom" 
+                                                                data-original-title="Zoom"><span class="fa fa-search"></span>
+                                                        </button>
+                                                        <!-- Pan -->
+                                                        <button id="pan" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pan"><span class="fa fa-arrows"></span></button>
+                                                        <!-- Length measurement -->
+                                                        <button id="enableLength" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Length Measurement"><span class="fa fa-arrows-v"></span></button>
+                                                        <!-- Angle measurement -->
+                                                        <button id="angle" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Angle Measurement"><span class="fa fa-angle-left"></span></button>
+                                                        <!-- Pixel probe -->
+                                                        <button id="probe" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pixel Probe"><span class="fa fa-dot-circle-o"></span></button>
+                                                        <!-- Elliptical ROI -->
+                                                        <button id="circleroi" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Elliptical ROI"><span class="fa fa-circle-o"></span></button>
+                                                        <!-- Rectangle ROI -->
+                                                        <button id="rectangleroi" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Rectangle ROI"><span class="fa fa-square-o"></span></button>
+
+                                                        <!-- highlight -->
+                                                        <button id="highlight" type="button" class="btn btn-sm btn-default" data-container="body" data-toggle="tooltip" data-placement="bottom" title="highlight" data-original-title="highlight"><span class="fa fa-lightbulb-o"></span></button>
+
+                                                        <button id="clearToolData" type="button" class="btn btn-sm btn-default" 
+                                                                data-container="body" data-toggle="tooltip" data-placement="bottom" 
+                                                                title="clearToolData" data-original-title="clearToolData">
+                                                            <span class="fa fa-eraser"></span></button>
+
+
+
+                                                    </div>
+
+                                                    <input id="filename" type="hidden" value="image.png"/>
+                                                </h:panelGroup>
+                                                
+                                                
+
+
+
+                                            </div>
+
+                                            <br/>
+                                            <div class="row">
+                                                <div style="width:100%;height:512px;position:relative;display:inline-block;color:white;"
+                                                     oncontextmenu="return false"
+                                                     class='cornerstone-enabled-image'
+                                                     unselectable='on'
+                                                     onselectstart='return false;'
+                                                     onmousedown='return false;'>
+                                                    <div id="dicomImage"
+                                                         style="width:100%;height:512px;top:0px;left:0px; position:absolute;">
+                                                    </div>
+                                                    <div id="mrtopleft" style="position: absolute;top:3px; left:3px">
+                                                        #{studyCaseController.selected.patientFk.patName}
+                                                    </div>
+                                                    <div id="mrtopright" style="position: absolute;top:3px; right:3px">
+                                                        .
+                                                    </div>
+                                                    <div id="mrbottomright" style="position: absolute;bottom:3px; right:3px">
+                                                        .
+                                                    </div>
+                                                    <div id="mrbottomleft" style="position: absolute;bottom:3px; left:3px">
+                                                        .
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+
+                            <h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.radiologist}">
+                                <div class="portlet box blue">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-check"></i>Informe Radiológico
+                                        </div>
+                                        <div class="tools">
+                                            <a href="javascript:;" class="collapse">
+                                            </a>
+
+                                            <a href="javascript:;" class="reload">
+                                            </a>
+                                            <a href="" class="fullscreen">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <h:form styleClass="form-horizontal">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Estado actual</label>
+                                                    <div class="col-md-10">
+                                                        <span class="label ticket-label" style="background: \##{studyCaseController.selected.idEstado.backgroundColor}; color: \##{studyCaseController.selected.idEstado.fontColor};">
+                                                            #{studyCaseController.selected.idEstado.nombre}
+                                                        </span>
+                                                       
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <h:panelGroup layout="block" class="form-group" rendered="#{not empty studyCaseController.selected.informedAt}">
+                                                    <label class="control-label col-md-2">
+                                                        <h:outputText value="#{bundle.ViewStudyCaseLabel_informedAt}"/></label>
+                                                    <div class="col-md-10">
+                                                        <h:outputText value="#{studyCaseController.selected.informedAt}" 
+                                                                      title="#{bundle.ViewStudyCaseTitle_informedAt}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                        </h:outputText>
+
+                                                    </div>
+                                                </h:panelGroup>
+
+                                                <div class="form-group last">
+                                                    <label class="control-label col-md-2">Informe</label>
+                                                    <div class="col-md-10">
+                                                        <h:inputTextarea id="informe" value="#{studyCaseController.selected.informText}" rows="8"
+                                                                         styleClass="form-control" required="true" requiredMessage="Favor ingrese el informe"/>
+                                                        <p:message for="informe"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+
+                                                    <div class="col-md-offset-2 col-md-10">
+
+
+
+                                                        <h:commandLink action="#{studyCaseController.informar}" title="Informar"
+                                                                       styleClass="btn blue">
+                                                            <i class="glyphicon glyphicon-transfer"></i> Informar
+                                                        </h:commandLink>
+                                                        
+                                                        <p:commandButton ajax="false" rendered="#{studyCaseController.selected.idEstado.idEstado eq 'informada'}"
+                                                                          disabled="#{empty studyCaseController.selected.informText}"
+                                                                         immediate="true" styleClass="btn btn-sm green"
+                                                                         value="Descargar Informe" >
+                                                            <p:fileDownload value="#{studyCaseController.exportarInformeAPDF()}" />
+                                                        </p:commandButton>
+
+                                                       
+
+                                                        <span class="pull-right">
+
+
+                                                            <h:commandLink action="#{studyCaseController.observar}" title="Enviar observaciones"
+                                                                           styleClass="btn btn-warning">
+                                                                <i class="glyphicon glyphicon-remove"></i> Observar
+                                                            </h:commandLink>
+                                                            &nbsp;
+                                                            <h:commandLink action="#{studyCaseController.repetir}" title="solicitar Repetir radiografía"
+                                                                           styleClass="btn btn-danger">
+                                                                <i class="glyphicon glyphicon-remove"></i> Repetir radiografía
+                                                            </h:commandLink>
+
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                        <!-- END FORM-->
+                                    </div>
+                                </div>
+
+                            </h:panelGroup>
+
+
+
+
+                            <h3><h:outputText value="#{studyCaseController.selected.description}" /></h3>
+
+                            <hr/>
+                            
+                            <p><h:outputText value="#{studyCaseController.selected.piezasDent}" /></p>
+
+
+                        </div>
+                        <!--end col-md-9-->
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+              <h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
+                                <div class="portlet box blue">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-check"></i>Informe Radiológico
+                                        </div>
+                                        <div class="tools">
+                                            <a href="javascript:;" class="collapse">
+                                            </a>
+
+                                            <a href="javascript:;" class="reload">
+                                            </a>
+                                            <a href="" class="fullscreen">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <h:form styleClass="form-horizontal">
+                                            <div class="form-body">
+
+
+
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">Estatus actual</label>
+                            <div class="col-sm-10">
+                                <span class="label ticket-label" style="background: \##{studyCaseController.selected.idEstado.backgroundColor}; color: \##{studyCaseController.selected.idEstado.fontColor};">
+                                    #{studyCaseController.selected.idEstado.nombre}
+                                </span>
+
+                            </div>
+                        </div>
+
+                        <h:panelGroup layout="block" class="form-group" rendered="#{not empty studyCaseController.selected.informedAt}">
+                            <label class="col-sm-2 control-label"><h:outputText value="#{bundle.ViewStudyCaseLabel_informedAt}"/></label>
+                            <div class="col-sm-10">
+
+                                <h:outputText value="#{studyCaseController.selected.informedAt}" 
+                                              title="#{bundle.ViewStudyCaseTitle_informedAt}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                            </div>
+                        </h:panelGroup>
+
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">Descripción</label>
+                            <div class="col-sm-10">
+                                <h:outputText value="#{studyCaseController.selected.informText}" rendered="#{not empty studyCaseController.selected.informText}"/>
+                                <h:outputText value="El radiólogo aun no escribe un informe." rendered="#{empty studyCaseController.selected.informText}"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                                                <div class="row">
+
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                         <p:commandButton ajax="false" rendered="#{studyCaseController.selected.idEstado.idEstado eq 'informada'}"
+                                                                          disabled="#{empty studyCaseController.selected.informText}"
+                                                                         immediate="true" styleClass="btn btn-sm green"
+                                                                         value="Descargar Informe" >
+                                                            <p:fileDownload value="#{studyCaseController.exportarInformeAPDF()}" />
+                                                        </p:commandButton>
+                                                    </div>
+                                                </div>
+                        </div>
+                        
+                                                       
+
+                                            </div>
+                    </h:form>
+                                        
+</div>
+                                    </div>
+
+              
+
+            </h:panelGroup>
+
+
+
+
+
+
+            <div class="modal fade" id="desktopViewerModal" tabindex="-1" role="dialog" aria-labelledby="desktopViewerModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Visualizador dicom en su escritorio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ol>
+                                <li>A traves de esta herramienta ud. podrá descargar el estudio completo y visualizarlo en su escritorio.</li>
+                                <li>Actualmente soportamos la descarga de Weasis portátil directo a su escritorio, ud. sólo requiere de <a href="https://www.java.com/es/download/" target="_blank">Java</a> instalado en su escritorio.</li>
+                                <li>Para más información sobre Weasis <a href="#">haga click aquí</a></li>
+                                <li>Pronto tambien soportaremos a los usuarios de osirix para iOS. Para más información de Osirix <a href="http://www.osirix-viewer.com" target="_blank">haga click aquí</a></li>
+                            </ol>
+                            <br/>
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="http://www.godesk.cl:8089/weasis-pacs-connector/viewer?studyUID=#{studyCaseController.selected.studyPk.studyIuid}" 
+                               title="View in Weasis" class="btn green">Download &amp; View</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- include the hammer.js library for touch gestures-->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/hammer.min.js" type="text/javascript"></script>
+
+            <!-- include the cornerstone library -->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/cornerstone.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/cornerstoneMath.min.js" type="text/javascript"></script>
+            <!--<h:outputScript name="cornerstone.min.js" library="js"/>-->
+            <!--<h:outputScript name="cornerstoneMath.min.js" library="js"/>-->
+
+            <!-- include the dicomParser library as the WADO image loader depends on it -->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/dicomParser.min.js" type="text/javascript"></script>
+            <!--<h:outputScript name="dicomParser.min.js" library="js"/>-->
+
+            <!-- jpeg 2000 codec -->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/jpx.min.js" type="text/javascript"></script>
+            <!--<h:outputScript name="jpx.min.js" library="js"/>-->
+
+            <!-- include the cornerstone tools library -->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/cornerstoneTools.min.js" type="text/javascript"></script>
+            <!--<h:outputScript name="cornerstoneTools.js" library="js"/>-->
+
+
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/js/cornerstoneWADOImageLoader.min.js" type="text/javascript"></script>
+            <!--<h:outputScript name="cornerstoneWADOImageLoader.min.js" library="js"/>-->
+
+
+
+        </ui:define>
+
+        <ui:define name="scripts">
+            <script>
+
+
+
+                $("#help").click(function () {
+                    $("#helpModal").modal();
+                });
+
+                //                $(cornerstone).bind('CornerstoneImageLoadProgress', function (eventData) {
+                //                    $('#loadProgress').text('Image Load Progress: ' + eventData.percentComplete + "%");
+                //                });
+
+                function downloadAndView(hostport, studyUID, seriesUID, objectUID, contentType)
+                {
+                    Metronic.blockUI({
+                        target: '#dicomviewerportlet',
+                        boxed: true
+                    });
+
+                    window.setTimeout(function () {
+                        Metronic.unblockUI('#dicomviewerportlet');
+                    }, 1200);
+
+                    var url = 'http://' + hostport + '/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=' + studyUID + '&amp;seriesUID=' + seriesUID + '&amp;objectUID=' + objectUID + '&amp;contentType=' + contentType;//$('#wadoURL').val();
+                    // prefix the url with dicomweb: so cornerstone can find the image loader
+                    url = "dicomweb:" + url;
+
+                    //                    alert(url);
+
+                    var element = $('#dicomImage').get(0);
+                    // Listen for changes to the viewport so we can update the text overlays in the corner
+                    function onViewportUpdated(e) {
+                        var viewport = cornerstone.getViewport(e.target)
+                        $('#mrbottomleft').text("WW/WC: " + Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter));
+                        $('#mrbottomright').text("Zoom: " + viewport.scale.toFixed(2));
+                    }
+                    ;
+                    $('#dicomImage').on("CornerstoneImageRendered", onViewportUpdated);
+
+                    // image enable the dicomImage element
+                    cornerstone.enable(element);
+                    cornerstone.loadImage(url).then(function (image) {
+                        cornerstone.displayImage(element, image);
+
+
+
+
+                        <h:panelGroup rendered = "#{studyCaseController.isMobileClient()}" >
+                                //Mobile touch
+
+                                cornerstoneTools.touchInput.enable(element);
+
+                        // Enable all tools we want to use with this element
+                        cornerstoneTools.wwwcTouchDrag.activate(element);
+                        cornerstoneTools.zoomTouchPinch.activate(element);
+                        cornerstoneTools.rotateTouch.activate(element);
+                        cornerstoneTools.panMultiTouch.activate(element);
+                        // helper function used by the tool button handlers to disable the active tool
+                        // before making a new tool active
+                        function disableAllTools()
+                        {
+                            cornerstoneTools.panTouchDrag.deactivate(element);
+                            cornerstoneTools.rotateTouchDrag.deactivate(element);
+                            cornerstoneTools.rotateTouch.disable(element);
+                            cornerstoneTools.ellipticalRoiTouch.deactivate(element);
+                            cornerstoneTools.angleTouch.deactivate(element);
+                            cornerstoneTools.rectangleRoiTouch.deactivate(element);
+                            cornerstoneTools.lengthTouch.deactivate(element);
+                            cornerstoneTools.probeTouch.deactivate(element);
+                            cornerstoneTools.zoomTouchDrag.deactivate(element);
+                            cornerstoneTools.wwwcTouchDrag.deactivate(element);
+                        }
+                        // Tool button event handlers that set the new active tool
+        var toolSelector = $("#toolSelector");
+                        $('#enableWindowLevelTool').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.wwwcTouchDrag.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#pan').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.panTouchDrag.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#rotate').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.rotateTouchDrag.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#zoom').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.zoomTouchPinch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#zoomDrag').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.zoomTouchDrag.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#length').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.lengthTouch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#probe').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.probeTouch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#circleroi').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.ellipticalRoiTouch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#rectangleroi').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.rectangleRoiTouch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#angle').click(function (e) {
+                            disableAllTools();
+                            cornerstoneTools.angleTouch.activate(element);
+            toolSelector.text(e.currentTarget.innerHTML)
+                        });
+                        $('#clearToolData').click(function () {
+                            disableAllTools();
+                            cornerstoneTools.wwwcTouchDrag.activate(element);
+                            cornerstoneTools.zoomTouchPinch.activate(element);
+            toolSelector.html('Select tool <span class="caret"></span>')
+                            var toolStateManager = cornerstoneTools.getElementToolStateManager(element);
+                            // Note that this only works on ImageId-specific tool state managers (for now)
+                            toolStateManager.clear(element)
+                            cornerstone.updateImage(element);
+                        });
+                        $('#resetViewport').click(function () {
+                            var canvas = $('#dicomImage canvas').get(0);
+                            var enabledElement = cornerstone.getEnabledElement(element);
+                            var viewport = cornerstone.getDefaultViewport(canvas, enabledElement.image)
+                            cornerstone.setViewport(element, viewport);
+                        });
+                        
+                         // Tool button event handlers that set the new active tool
+                        $('#save').click(function () {
+                            var filename = $("#filename").val();
+                            cornerstoneTools.saveAs(element, filename);
+                            return false;
+                        });
+                        
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered = "#{!studyCaseController.isMobileClient()}" >
+                                //desktop code
+                                cornerstoneTools.mouseInput.enable(element);
+                        cornerstoneTools.mouseWheelInput.enable(element);
+                        // Enable all tools we want to use with this element
+                        cornerstoneTools.wwwc.activate(element, 1); // ww/wc is the default tool for left mouse button
+                        cornerstoneTools.pan.activate(element, 2); // pan is the default tool for middle mouse button
+                        cornerstoneTools.zoom.activate(element, 4); // zoom is the default tool for right mouse button
+                        cornerstoneTools.zoomWheel.activate(element); // zoom is the default tool for middle mouse wheel
+                        cornerstoneTools.probe.enable(element);
+                        cornerstoneTools.length.enable(element);
+                        cornerstoneTools.ellipticalRoi.enable(element);
+                        cornerstoneTools.rectangleRoi.enable(element);
+                        cornerstoneTools.angle.enable(element);
+                        cornerstoneTools.highlight.enable(element);
+                        activate("#enableWindowLevelTool");
+                        function activate(id)
+                        {
+                            $('a').removeClass('active');
+                            $(id).addClass('active');
+                        }
+                        // helper function used by the tool button handlers to disable the active tool
+                        // before making a new tool active
+                        function disableAllTools()
+                        {
+                            cornerstoneTools.wwwc.disable(element);
+                            cornerstoneTools.pan.activate(element, 2); // 2 is middle mouse button
+                            cornerstoneTools.zoom.activate(element, 4); // 4 is right mouse button
+                            cornerstoneTools.probe.deactivate(element, 1);
+                            cornerstoneTools.length.deactivate(element, 1);
+                            cornerstoneTools.ellipticalRoi.deactivate(element, 1);
+                            cornerstoneTools.rectangleRoi.deactivate(element, 1);
+                            cornerstoneTools.angle.deactivate(element, 1);
+                            cornerstoneTools.highlight.deactivate(element, 1);
+                        }
+                        // Tool button event handlers that set the new active tool
+                        $('#enableWindowLevelTool').click(function () {
+                            activate('#enableWindowLevelTool')
+                            disableAllTools();
+                            cornerstoneTools.wwwc.activate(element, 1);
+                        });
+                        $('#pan').click(function () {
+                            activate('#pan')
+                            disableAllTools();
+                            cornerstoneTools.pan.activate(element, 3); // 3 means left mouse button and middle mouse button
+                        });
+                        $('#zoom').click(function () {
+                            activate('#zoom')
+                            disableAllTools();
+                            cornerstoneTools.zoom.activate(element, 5); // 5 means left mouse button and right mouse button
+                        });
+                        $('#enableLength').click(function () {
+                            activate('#enableLength')
+                            disableAllTools();
+                            cornerstoneTools.length.activate(element, 1);
+                        });
+                        $('#probe').click(function () {
+                            activate('#probe')
+                            disableAllTools();
+                            cornerstoneTools.probe.activate(element, 1);
+                        });
+                        $('#circleroi').click(function () {
+                            activate('#circleroi')
+                            disableAllTools();
+                            cornerstoneTools.ellipticalRoi.activate(element, 1);
+                        });
+                        $('#rectangleroi').click(function () {
+                            activate('#rectangleroi')
+                            disableAllTools();
+                            cornerstoneTools.rectangleRoi.activate(element, 1);
+                        });
+                        $('#angle').click(function () {
+                            activate('#angle')
+                            disableAllTools();
+                            cornerstoneTools.angle.activate(element, 1);
+                        });
+                        $('#highlight').click(function () {
+                            activate('#highlight')
+                            disableAllTools();
+                            cornerstoneTools.highlight.activate(element, 1);
+                        });
+
+                        $('#clearLengthData').click(function () {
+                            cornerstoneTools.clearToolState(element, "length");
+                            cornerstone.updateImage(element);
+                        });
+
+                        $('#clearToolData').click(function () {
+                            var toolStateManager = cornerstoneTools.getElementToolStateManager(element);
+                            // Note that this only works on ImageId-specific tool state managers (for now)
+                            toolStateManager.clear(element)
+                            cornerstone.updateImage(element);
+                        });
+
+                        // Tool button event handlers that set the new active tool
+                        $('#save').click(function () {
+                            var filename = $("#filename").val();
+                            cornerstoneTools.saveAs(element, filename);
+                            return false;
+                        });
+                                </h:panelGroup>
+
+
+
+                    });
+                }
+
+                //Load the first image at once
+                <h:panelGroup rendered = "#{not empty studyCaseController.selected.images}" >
+                        downloadAndView('www.godesk.cl:8089', '#{studyCaseController.selected.firstImage.seriesFk.studyFk.studyIuid}', '#{studyCaseController.selected.firstImage.seriesFk.seriesIuid}',
+                                '#{studyCaseController.selected.firstImage.sopIuid}', 'application/dicom')
+                        </h:panelGroup>
+            </script>
+        </ui:define>
+
+
+
+    </ui:composition>
+
+
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:go="http://xmlns.jcp.org/jsf/composite/go">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListStudyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <p:messages autoUpdate="true" globalOnly="true"/>
+
+            <!-- Search form -->
+            <h:form id="formfilter" styleClass="search-form">
+
+                <go:filterView id="panelFilter0" titleIconClass="fa fa-inbox page-header-icon hidden-xs"
+                               showSearchBar="true"
+                               controllerMBean="#{studyController}" 
+                               vista="#{studyController.vista}"
+                               filterHelper="#{studyController.filterHelper}" 
+                               canChangeFilters="true"
+                               update=":form :formfilter:panelFilter0:panelFilter"
+                               vistaControllerBackOutcome="/cruds/study/List" rendered="true"/>
+
+            </h:form>
+
+            <h:form id="form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListStudyEmpty}" rendered="#{studyController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{studyController.items.rowCount > 0}">
+                    <h:outputText value="#{studyController.pagination.pageFirstItem + 1}..#{studyController.pagination.pageLastItem + 1}/#{studyController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{studyController.previous}" value="#{bundle.Previous} #{studyController.pagination.pageSize}" rendered="#{studyController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{studyController.next}" value="#{bundle.Next} #{studyController.pagination.pageSize}" rendered="#{studyController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    <div class="table-responsive table-scrollable table-scrollable-borderless">
+                    <go:studiesTable list="#{studyController.items}"/>
+                    </div>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{studyController.prepareCreate}" value="#{bundle.ListStudyCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListStudyIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

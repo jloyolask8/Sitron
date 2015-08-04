@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Upload imagenes"></h:outputText>
+        </ui:define>
+        
+         <ui:define name="styles">
+            <h:outputStylesheet library="css" name="dropzone.css" />
+        </ui:define>
+        
+        <ui:define name="body">
+           
+            <div class="dropzone" />
+            <br/>
+             <form>
+                <input id="aet" type="hidden" value="DCM4CHEE"/>
+                <button id="clear" type="button" class="btn btn-default">Reset</button>
+                <button id="upload" type="button" class="btn btn-primary">Subir Imagenes</button>
+                
+            </form>
+            
+            
+            
+            <h:outputScript library="js" name="dropzone.js"/>
+            <h:outputScript library="js" name="upload.js"/>
+
+            <br/>
+             <span class="label label-danger">
+                                            NOTA! </span>
+                                        <span>
+                                            &nbsp; Solo se permiten imagenes en formato DICOM con extension .dcm</span>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

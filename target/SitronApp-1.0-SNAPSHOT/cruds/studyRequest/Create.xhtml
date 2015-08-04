@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateStudyCaseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:messages autoUpdate="true" globalOnly="true"/>
+            <h:form>
+
+
+                <!-- BEGIN PAGE CONTENT-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box blue" id="form_wizard_1">
+
+                            <div class="portlet-body form">
+                                <div class="form-wizard">
+                                    <div class="form-body">
+                                        <ul class="nav nav-pills nav-justified steps">
+                                            <li class="#{studyCaseController.stepNewCasoIndex eq 1 ? 'active':(studyCaseController.stepNewCasoIndex gt 1 ? 'done':'')}">
+                                                <a href="#tab1" class="step">
+                                                    <span class="number"> 1 </span>
+                                                    <span class="desc">
+                                                        <i class="fa fa-check"></i> Paciente &amp; Imágenes </span>
+                                                </a>
+                                            </li>
+                                            <li class="#{studyCaseController.stepNewCasoIndex eq 2 ? 'active':(studyCaseController.stepNewCasoIndex gt 2 ? 'done':'')}">
+                                                <a href="#tab2" class="step">
+                                                    <span class="number"> 2 </span>
+                                                    <span class="desc">
+                                                        <i class="fa fa-check"></i> Descripción </span>
+                                                </a>
+                                            </li>
+                                            <li class="#{studyCaseController.stepNewCasoIndex eq 3 ? 'active':(studyCaseController.stepNewCasoIndex gt 3 ? 'done':'')}">
+                                                <a href="#tab3" class="step active">
+                                                    <span class="number"> 3 </span>
+                                                    <span class="desc">
+                                                        <i class="fa fa-check"></i> Asignación </span>
+                                                </a>
+                                            </li>
+                                            <li class="#{studyCaseController.stepNewCasoIndex eq 4 ? 'active':(studyCaseController.stepNewCasoIndex gt 4 ? 'done':'')}">
+                                                <a href="#tab4" class="step">
+                                                    <span class="number">
+                                                        4 </span>
+                                                    <span class="desc">
+                                                        <i class="fa fa-check"></i> Confirmación </span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+
+                                        <div id="bar" class="progress progress-striped" role="progressbar">
+                                            <div class="progress-bar progress-bar-success" style="width: #{studyCaseController.stepNewCasoIndex * 25}%;">
+                                            </div>
+                                        </div>
+
+                                        <h:panelGroup id="tab1" rendered="#{studyCaseController.stepNewCasoIndex eq 1}">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="patientPk" class="col-sm-2 control-label">Paciente</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="patientPk" styleClass="form-control" 
+                                                                         required="true" requiredMessage="favor seleccione al paciente" 
+                                                                         value="#{studyCaseController.selected.patientFk}" >
+                                                            <p:ajax update="@form studyPk instancePk" listener="#{studyCaseController.handlePatientSelectionOnCreate()}"/> 
+                                                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"/>
+                                                        </h:selectOneMenu>
+                                                        <p:message for="patientPk"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="patientPk" class="col-sm-2 control-label">Fecha nac.</label>
+                                                    <div class="col-sm-10">
+                                                          <h:inputText id="fnac" styleClass="form-control" 
+                                                                     required="true" requiredMessage="El dato es requerido"
+                                                                     value="#{studyCaseController.selected.patientFk.patBirthdate}"  />
+                                                        <h:message for="fnac" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="studyPk" class="col-sm-2 control-label">Estudio</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="studyPk" styleClass="form-control" 
+                                                                         required="true" requiredMessage="Seleccione el estudio para imagenes"
+                                                                         value="#{studyCaseController.selected.studyPk}">
+                                                            <p:ajax update="@form  instancePk" listener="#{studyCaseController.handleStudySelection()}"/> 
+                                                            <f:selectItem noSelectionOption="true"/>
+                                                            <f:selectItems value="#{studyCaseController.selected.patientFk.studyList}" var="study" itemLabel="#{study.studyDesc}" itemValue="#{study}"/>
+                                                        </h:selectOneMenu>
+                                                        <p:message for="studyPk"/>
+                                                    </div>
+                                                </div>
+
+<!--                                                <div class="form-group">
+                                                    <label for="seriePk" class="col-sm-2 control-label">Serie</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="seriePk" styleClass="form-control" 
+                                                                         required="true" requiredMessage="seleccione una serie para imagenes"
+                                                                         value="#{studyCaseController.selected.serieSelected}" >
+                                                            <p:ajax update="@form instancePk"/> 
+                                                            <f:selectItem noSelectionOption="true"/>
+                                                            <f:selectItems value="#{studyCaseController.selected.studyPk.seriesList}" var="serie" 
+                                                                           itemLabel="#{serie.seriesDesc}" itemValue="#{serie}"/>
+                                                        </h:selectOneMenu>
+                                                        <p:message for="seriePk"/>
+                                                    </div>
+                                                </div>-->
+
+                                                <div class="form-group">
+                                                    <label for="instancePk" class="col-sm-2 control-label">Imagenes</label>
+                                                    <div class="col-sm-10">
+                                                        <p:scrollPanel mode="native" style="width:100%;height:200px">
+                                                            <p:selectManyMenu id="instancePk" converter="InstanceConverter"
+                                                                              value="#{studyCaseController.selected.images}" style="width: 100%;"
+                                                                              var="instance"  showCheckbox="true">
+                                                                <f:selectItems value="#{studyCaseController.selected.instanceList}" var="instance" 
+                                                                               itemLabel="#{instance.sopIuid}" 
+                                                                               itemValue="#{instance}"></f:selectItems>
+
+                                                                <p:column>
+                                                                    <h:graphicImage height="50" width="50"
+                                                                                    url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+
+                                                                </p:column>
+
+                                                                <p:column>
+                                                                    <h:outputText value="#{instance.sopIuid}" />
+                                                                </p:column>
+                                                            </p:selectManyMenu>
+                                                        </p:scrollPanel>
+
+                                                        <p:message for="instancePk"/>
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="tab2" rendered="#{studyCaseController.stepNewCasoIndex eq 2}">
+                                          
+                                            
+                                            
+                                            
+                                            <div class="form-horizontal">
+                                                
+                                                <div class="form-group">
+                                                    <label for="instancePk" class="col-sm-2 control-label">Imagenes</label>
+                                                    <div class="col-sm-10">
+                                                        <h:panelGroup layout="block"  rendered="#{not empty studyCaseController.selected.images}">
+                                                            <p:lightBox styleClass="imagebox">
+                                                                <ui:repeat value="#{studyCaseController.selected.images}" var="instance">
+                                                                    <h:outputLink style="margin: 1px;"
+                                                                                  value="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}">
+
+                                                                        <h:graphicImage height="50" width="50"
+                                                                                        url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+
+                                                                    </h:outputLink>
+                                                                </ui:repeat>
+                                                            </p:lightBox>
+                                                        </h:panelGroup>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="subject" class="col-sm-2 control-label">Diagnóstico clínico</label>
+                                                    <div class="col-sm-10">
+                                                        <h:inputText id="subject" styleClass="form-control" 
+                                                                     required="true" requiredMessage="El dato es requerido"
+                                                                     value="#{studyCaseController.selected.subject}" title="#{bundle.CreateStudyCaseTitle_subject}" />
+                                                        <h:message for="subject" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="piezasDent" class="col-sm-2 control-label">Diente</label>
+                                                    <div class="col-sm-10">
+                                                        <h:inputText id="piezasDent" styleClass="form-control" 
+                                                                         required="true" requiredMessage="El dato es requerido"
+                                                                         value="#{studyCaseController.selected.piezasDent}" />
+
+                                                        <h:message for="piezasDent" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="eval" class="col-sm-2 control-label">Se desea evaluar</label>
+                                                    <div class="col-sm-10">
+                                                        <h:inputText id="eval" styleClass="form-control" 
+                                                                         required="true" requiredMessage="El dato es requerido"
+                                                                         value="#{studyCaseController.selected.description}" />
+
+                                                        <h:message for="eval" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label for="rxType" class="col-sm-2 control-label">Tipo Radiografia</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="rxType" styleClass="form-control" 
+                                                                         required="true" requiredMessage="El tipo de rad. es requerido"
+                                                                         value="#{studyCaseController.selected.rxType}" >
+                                                            <f:selectItem itemLabel="Retroalveolar" itemValue="Retroalveolar"/>
+                                                            <f:selectItem itemLabel="Bite Wing" itemValue="Bite Wing"/>
+                                                            <f:selectItem itemLabel="Panoramica" itemValue="Panoramica"/>
+                                                            <f:selectItem itemLabel="Teleradiografia" itemValue="Teleradiografia"/>
+                                                            <f:selectItem itemLabel="Cone Beam" itemValue="Cone Beam"/>
+                                                        </h:selectOneMenu>  
+
+                                                        <h:message for="rxType" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="priority" class="col-sm-2 control-label">Prioridad</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="priority" styleClass="form-control"
+                                                                         required="true" requiredMessage="El dato es requerido"
+                                                                         value="#{studyCaseController.selected.priority}" title="#{bundle.CreateStudyCaseTitle_priority}" >
+                                                            <f:selectItems value="#{priorityController.itemsAvailableSelectOne}"/>
+                                                        </h:selectOneMenu>                
+                                                        <h:message for="priority" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="doctor" class="col-sm-2 control-label">Clinico</label>
+                                                    <div class="col-sm-10">
+                                                        <h:selectOneMenu id="doctor" styleClass="form-control"
+                                                                         required="true" requiredMessage="El clinico es requerido"
+                                                                         value="#{studyCaseController.selected.doctor}"  >
+                                                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                                                        </h:selectOneMenu>                
+                                                        <h:message for="doctor" errorClass="text-danger"/>
+                                                    </div>
+                                                </div>
+
+                                               
+                                            </div>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="tab3" rendered="#{studyCaseController.stepNewCasoIndex eq 3}">
+                                            <div class="panel-body">
+
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label for="assignee" class="col-sm-2 control-label">Radiologo</label>
+                                                        <div class="col-sm-10">
+                                                            <h:selectOneMenu id="assignee" styleClass="form-control" 
+                                                                             value="#{studyCaseController.selected.assignee}" title="#{bundle.CreateStudyCaseTitle_assignee}" >
+                                                                <f:selectItem itemLabel="Sin Asignar (esta tarea estara disponible para todos los radiologos del sistema" itemValue=""/>
+                                                                <f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" />
+                                                            </h:selectOneMenu>                                </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="tab4" rendered="#{studyCaseController.stepNewCasoIndex eq 4}">
+                                            <h3 class="block">Confirmar</h3>
+
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="patientPk" class="col-sm-2 control-label">Paciente</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.patientFk.patName}" />
+                                                       
+                                                    </div>
+                                                </div>
+
+<!--                                                <div class="form-group">
+                                                    <label for="studyPk" class="col-sm-2 control-label">Estudio</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.studyPk.studyDesc}" />
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="seriePk" class="col-sm-2 control-label">Serie</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.serieSelected.seriesDesc}" />
+                                                    </div>
+                                                </div>-->
+
+                                                <div class="form-group">
+                                                    <label for="instancePk" class="col-sm-2 control-label">Imagenes</label>
+                                                    <div class="col-sm-10">
+                                                        <h:panelGroup layout="block"  rendered="#{not empty studyCaseController.selected.images}">
+                                                            <p:lightBox styleClass="imagebox" id="lighbox1">
+                                                                <ui:repeat value="#{studyCaseController.selected.images}" var="instance">
+                                                                    <h:outputLink style="margin: 1px;"
+                                                                                  value="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}">
+
+                                                                        <h:graphicImage height="50" width="50"
+                                                                                        url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+
+                                                                    </h:outputLink>
+                                                                </ui:repeat>
+                                                            </p:lightBox>
+                                                        </h:panelGroup>
+                                                    </div>
+                                                </div>
+                                                
+                                                 <div class="form-group">
+                                                    <label for="subject" class="col-sm-2 control-label">Diagnóstico clínico</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.subject}" />
+                                                       
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="piezasDent" class="col-sm-2 control-label">Diente</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.piezasDent}" />
+                                                        
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label for="rxType" class="col-sm-2 control-label">Tipo Radiografia</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.rxType}" />
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="priority" class="col-sm-2 control-label">Prioridad</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.priority}" />
+                                                       
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="doctor" class="col-sm-2 control-label">Clinico</label>
+                                                    <div class="col-sm-10">
+                                                        <h:outputText value="#{studyCaseController.selected.doctor.capitalName}" />
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Solicitante</label>
+                                                    <div class="col-sm-10">
+                                                        #{UserSessionBean.current.capitalName}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                        <label for="assignee" class="col-sm-2 control-label">Asignar a</label>
+                                                        <div class="col-sm-10">
+                                                            <h:outputText value="#{studyCaseController.selected.assignee ne null ? studyCaseController.selected.assignee.capitalName:'El sistema asignara la tarea'}" />
+                                                          
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                            </div>
+
+
+
+                                        </h:panelGroup>
+
+
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-2 col-md-10">
+
+
+                                                <h:commandLink id="backstep" action="#{studyCaseController.goBackCreateCasoByStep()}"
+                                                               immediate="true"
+                                                               styleClass="btn default button-previous"
+                                                               rendered="#{studyCaseController.stepNewCasoIndex gt 1}">
+                                                    <i class="m-icon-swapleft"></i> Atrás
+                                                </h:commandLink>
+
+                                                <h:panelGroup rendered="#{studyCaseController.stepNewCasoIndex eq 4}">
+                                                    <h:commandLink action="#{studyCaseController.createCasoByStep}" class="btn green button-submit">
+                                                        Crear Tarea <i class="m-icon-swapright m-icon-white"></i>
+                                                    </h:commandLink>
+                                                </h:panelGroup>
+
+                                                <h:panelGroup rendered="#{studyCaseController.stepNewCasoIndex lt 4}">
+                                                    <h:commandLink action="#{studyCaseController.createCasoByStep}" class="btn blue button-next">
+                                                        Siguiente <i class="m-icon-swapright m-icon-white"></i>
+                                                    </h:commandLink>
+                                                </h:panelGroup>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT-->
+
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

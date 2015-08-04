@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <div class="clearfix navbar-fixed-top">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- End Toggle Button -->
+
+                        <!-- BEGIN LOGO -->
+                        <a id="index" class="page-logo" href="#{facesContext.externalContext.requestContextPath}/index.xhtml">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/images/logofullwhite.png" alt="Logo"/>
+                        </a>
+                        <!-- END LOGO -->
+
+                        <!-- BEGIN SEARCH -->
+
+                        <!-- END SEARCH -->
+
+                        <!-- BEGIN TOPBAR ACTIONS -->
+                        <div class="topbar-actions">
+                            <!-- BEGIN GROUP NOTIFICATION -->
+                            <div class="btn-group-notification btn-group" id="header_notification_bar">
+                                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <i class="icon-bell"></i>
+                                    <span class="badge">2</span>
+                                </button>
+                                <ul class="dropdown-menu-v2">
+                                    <li class="external">
+                                        <h3><span class="bold">2 pending</span> notifications</h3>
+                                        <a href="#">view all</a>
+                                    </li>
+                                    <li>
+                                        <ul class="dropdown-menu-list scroller" style="height: 250px; padding: 0;" data-handle-color="#637283">
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="details">
+                                                        <span class="label label-sm label-icon label-success">
+                                                            <i class="fa fa-plus"></i>
+                                                        </span>
+                                                        Se le ha asignado una nueva tarea #33
+                                                    </span>
+                                                    <span class="time">just now</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="details">
+                                                        <span class="label label-sm label-icon label-danger">
+                                                            <i class="fa fa-bolt"></i>
+                                                        </span>
+                                                        Tarea #12 Tiempo de respuesta ha expirado.
+                                                    </span>
+                                                    <span class="time">3 mins</span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END GROUP NOTIFICATION -->
+
+                            <!-- BEGIN GROUP INFORMATION -->
+
+                            <!-- END GROUP INFORMATION -->
+
+                            <!-- BEGIN USER PROFILE -->
+                            <div class="btn-group-img btn-group">
+                                <h:form>
+                                    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <span>#{UserSessionBean.current.capitalName}, #{UserSessionBean.current.rol}</span>
+                                        <img src="#{session.getAttribute('user').picture}" alt="#{session.getAttribute('user').email}"/>
+                                    </button>
+                                    <ul class="dropdown-menu-v2" role="menu">
+                                        <li>
+                                            <h:commandLink action="/cruds/account">
+                                                Cuenta
+                                            </h:commandLink>
+                                        </li>
+                                        <li>
+                                            <a href="lock_screen.html">Lock Screen</a>
+                                        </li>
+                                        <li>
+                                            <h:commandLink action="#{loginController.logout_action}" value="Cerrar Sesión">
+                                                <p:resetInput target="@form" />
+                                            </h:commandLink>
+                                        </li>
+                                    </ul></h:form>
+                            </div>
+                            <!-- END USER PROFILE -->
+
+                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+<!--                            <button type="button" class="quick-sidebar-toggler" data-toggle="collapse">
+                                <span class="sr-only">Toggle Quick Sidebar</span>
+                                <i class="icon-logout"></i>
+                            </button>-->
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </div>
+                        <!-- END TOPBAR ACTIONS -->
+                    </div>
+    </cc:implementation>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditStudyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditStudyLabel_pk}" for="pk" />
+                    <h:inputText id="pk" styleClass="form-control" value="#{studyController.selected.pk}" title="#{bundle.EditStudyTitle_pk}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_pk}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_availability}" for="availability" />
+                    <h:inputText id="availability" styleClass="form-control" value="#{studyController.selected.availability}" title="#{bundle.EditStudyTitle_availability}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_availability}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_createdTime}" for="createdTime" />
+                    <h:inputText id="createdTime" styleClass="form-control" value="#{studyController.selected.createdTime}" title="#{bundle.EditStudyTitle_createdTime}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_createdTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_modsInStudy}" for="modsInStudy" />
+                    <h:inputText id="modsInStudy" styleClass="form-control" value="#{studyController.selected.modsInStudy}" title="#{bundle.EditStudyTitle_modsInStudy}" />
+                    <h:outputLabel value="#{bundle.EditStudyLabel_numInstances}" for="numInstances" />
+                    <h:inputText id="numInstances" styleClass="form-control" value="#{studyController.selected.numInstances}" title="#{bundle.EditStudyTitle_numInstances}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_numInstances}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_numSeries}" for="numSeries" />
+                    <h:inputText id="numSeries" styleClass="form-control" value="#{studyController.selected.numSeries}" title="#{bundle.EditStudyTitle_numSeries}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_numSeries}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_cuidsInStudy}" for="cuidsInStudy" />
+                    <h:inputText id="cuidsInStudy" styleClass="form-control" value="#{studyController.selected.cuidsInStudy}" title="#{bundle.EditStudyTitle_cuidsInStudy}" />
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyCustom1}" for="studyCustom1" />
+                    <h:inputText id="studyCustom1" styleClass="form-control" value="#{studyController.selected.studyCustom1}" title="#{bundle.EditStudyTitle_studyCustom1}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyCustom1}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyCustom2}" for="studyCustom2" />
+                    <h:inputText id="studyCustom2" styleClass="form-control" value="#{studyController.selected.studyCustom2}" title="#{bundle.EditStudyTitle_studyCustom2}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyCustom2}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyCustom3}" for="studyCustom3" />
+                    <h:inputText id="studyCustom3" styleClass="form-control" value="#{studyController.selected.studyCustom3}" title="#{bundle.EditStudyTitle_studyCustom3}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyCustom3}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyDate}" for="studyDate" />
+                    <h:inputText id="studyDate" styleClass="form-control" value="#{studyController.selected.studyDate}" title="#{bundle.EditStudyTitle_studyDate}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyDate}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyDesc}" for="studyDesc" />
+                    <h:inputText id="studyDesc" styleClass="form-control" value="#{studyController.selected.studyDesc}" title="#{bundle.EditStudyTitle_studyDesc}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyDesc}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyId}" for="studyId" />
+                    <h:inputText id="studyId" styleClass="form-control" value="#{studyController.selected.studyId}" title="#{bundle.EditStudyTitle_studyId}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyId}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyIuid}" for="studyIuid" />
+                    <h:inputText id="studyIuid" styleClass="form-control" value="#{studyController.selected.studyIuid}" title="#{bundle.EditStudyTitle_studyIuid}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyIuid}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_studyTime}" for="studyTime" />
+                    <h:inputText id="studyTime" styleClass="form-control" value="#{studyController.selected.studyTime}" title="#{bundle.EditStudyTitle_studyTime}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_studyTime}"/>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_updatedTime}" for="updatedTime" />
+                    <h:inputText id="updatedTime" styleClass="form-control" value="#{studyController.selected.updatedTime}" title="#{bundle.EditStudyTitle_updatedTime}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_updatedTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditStudyLabel_patientFk}" for="patientFk" />
+                    <h:selectOneMenu id="patientFk" value="#{studyController.selected.patientFk}" title="#{bundle.EditStudyTitle_patientFk}" >
+                        <f:selectItems value="#{patientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{studyController.update}" value="#{bundle.EditStudySaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditStudyViewLink}"/>
+                <br />
+                <h:commandLink action="#{studyController.prepareList}" value="#{bundle.EditStudyShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditStudyIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

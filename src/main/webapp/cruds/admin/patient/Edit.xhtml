@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPatientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:messages autoUpdate="true" globalOnly="true"/>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPatientLabel_pk}" for="pk" />
+                    <h:inputText id="pk" styleClass="form-control" value="#{patientController.selected.pk}" title="#{bundle.EditPatientTitle_pk}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_pk}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_createdTime}" for="createdTime" />
+                    <h:inputText id="createdTime" styleClass="form-control" value="#{patientController.selected.createdTime}" title="#{bundle.EditPatientTitle_createdTime}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_createdTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patIdIssuer}" for="patIdIssuer" />
+                    <h:inputText id="patIdIssuer" styleClass="form-control" value="#{patientController.selected.patIdIssuer}" title="#{bundle.EditPatientTitle_patIdIssuer}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patIdIssuer}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patBirthdate}" for="patBirthdate" />
+                    <h:inputText id="patBirthdate" styleClass="form-control" value="#{patientController.selected.patBirthdate}" title="#{bundle.EditPatientTitle_patBirthdate}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patBirthdate}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patCustom1}" for="patCustom1" />
+                    <h:inputText id="patCustom1" styleClass="form-control" value="#{patientController.selected.patCustom1}" title="#{bundle.EditPatientTitle_patCustom1}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patCustom1}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patCustom2}" for="patCustom2" />
+                    <h:inputText id="patCustom2" styleClass="form-control" value="#{patientController.selected.patCustom2}" title="#{bundle.EditPatientTitle_patCustom2}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patCustom2}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patCustom3}" for="patCustom3" />
+                    <h:inputText id="patCustom3" styleClass="form-control" value="#{patientController.selected.patCustom3}" title="#{bundle.EditPatientTitle_patCustom3}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patCustom3}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patFnSx}" for="patFnSx" />
+                    <h:inputText id="patFnSx" styleClass="form-control" value="#{patientController.selected.patFnSx}" title="#{bundle.EditPatientTitle_patFnSx}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patFnSx}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patGnSx}" for="patGnSx" />
+                    <h:inputText id="patGnSx" styleClass="form-control" value="#{patientController.selected.patGnSx}" title="#{bundle.EditPatientTitle_patGnSx}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patGnSx}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patId}" for="patId" />
+                    <h:inputText id="patId" styleClass="form-control" value="#{patientController.selected.patId}" title="#{bundle.EditPatientTitle_patId}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patId}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patIName}" for="patIName" />
+                    <h:inputText id="patIName" styleClass="form-control" value="#{patientController.selected.patIName}" title="#{bundle.EditPatientTitle_patIName}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patIName}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patName}" for="patName" />
+                    <h:inputText id="patName" styleClass="form-control" value="#{patientController.selected.patName}" title="#{bundle.EditPatientTitle_patName}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patName}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patPName}" for="patPName" />
+                    <h:inputText id="patPName" styleClass="form-control" value="#{patientController.selected.patPName}" title="#{bundle.EditPatientTitle_patPName}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patPName}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_patSex}" for="patSex" />
+                    <h:inputText id="patSex" styleClass="form-control" value="#{patientController.selected.patSex}" title="#{bundle.EditPatientTitle_patSex}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_patSex}"/>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_updatedTime}" for="updatedTime" />
+                    <h:inputText id="updatedTime" styleClass="form-control" value="#{patientController.selected.updatedTime}" title="#{bundle.EditPatientTitle_updatedTime}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_updatedTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPatientLabel_mergeFk}" for="mergeFk" />
+                    <h:selectOneMenu id="mergeFk" value="#{patientController.selected.mergeFk}" title="#{bundle.EditPatientTitle_mergeFk}" >
+                        <f:selectItems value="#{patientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{patientController.update}" value="#{bundle.EditPatientSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPatientViewLink}"/>
+                <br />
+                <h:commandLink action="#{patientController.prepareList}" value="#{bundle.EditPatientShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPatientIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

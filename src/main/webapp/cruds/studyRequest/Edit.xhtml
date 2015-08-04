@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditStudyCaseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <p:messages autoUpdate="true" globalOnly="true"/>
+          
+
+                <h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-check"></i>Informe Radiológico
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse">
+                                </a>
+
+                                <a href="javascript:;" class="reload">
+                                </a>
+                                <a href="" class="fullscreen">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <h:form styleClass="form-horizontal">
+                                <div class="form-body">
+
+
+
+                                    <div class="form-group">
+                                        <label for="status" class="col-sm-2 control-label">Estatus actual</label>
+                                        <div class="col-sm-10">
+                                            <span class="label ticket-label" style="background: \##{studyCaseController.selected.idEstado.backgroundColor}; color: \##{studyCaseController.selected.idEstado.fontColor};">
+                                                #{studyCaseController.selected.idEstado.nombre}
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                    <h:panelGroup layout="block" class="form-group" rendered="#{not empty studyCaseController.selected.informedAt}">
+                                        <label class="col-sm-2 control-label"><h:outputText value="#{bundle.ViewStudyCaseLabel_informedAt}"/></label>
+                                        <div class="col-sm-10">
+
+                                            <h:outputText value="#{studyCaseController.selected.informedAt}" 
+                                                          title="#{bundle.ViewStudyCaseTitle_informedAt}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                            </h:outputText>
+
+                                        </div>
+                                    </h:panelGroup>
+
+                                    <div class="form-group">
+                                        <label for="status" class="col-sm-2 control-label">Descripción</label>
+                                        <div class="col-sm-10">
+                                            <h:outputText value="#{studyCaseController.selected.informText}" rendered="#{not empty studyCaseController.selected.informText}"/>
+                                            <h:outputText value="El radiólogo aun no escribe un informe." rendered="#{empty studyCaseController.selected.informText}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <div class="row">
+
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <p:commandButton ajax="false" rendered="#{studyCaseController.selected.idEstado.idEstado eq 'informada'}"
+                                                                 disabled="#{empty studyCaseController.selected.informText}"
+                                                                 immediate="true" styleClass="btn btn-sm green"
+                                                                 value="Descargar Informe" >
+                                                    <p:fileDownload value="#{studyCaseController.exportarInformeAPDF()}" />
+                                                </p:commandButton>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </h:form>
+
+                        </div>
+                    </div>
+
+
+
+                </h:panelGroup>
+  <h:form>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Paciente &amp; Imágenes</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="patientPk" class="col-sm-2 control-label">Paciente</label>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu id="patientPk" styleClass="form-control" 
+                                                     required="true" requiredMessage="favor seleccione al paciente" 
+                                                     value="#{studyCaseController.selected.patientFk}" >
+                                        <p:ajax update="@form studyPk"/> 
+                                        <f:selectItems value="#{patientController.itemsAvailableSelectOne}"/>
+                                    </h:selectOneMenu>
+                                    <p:message for="patientPk"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studyPk" class="col-sm-2 control-label">Estudio</label>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu id="studyPk" styleClass="form-control" 
+                                                     required="true" requiredMessage="Seleccione el estudio para imagenes"
+                                                     value="#{studyCaseController.selected.studyPk}">
+                                        <p:ajax update="@form seriePk" listener="#{studyCaseController.handleStudySelection()}"/> 
+                                        <f:selectItem noSelectionOption="true"/>
+                                        <f:selectItems value="#{studyCaseController.selected.patientFk.studyList}" var="study" itemLabel="#{study.studyDesc}" itemValue="#{study}"/>
+                                    </h:selectOneMenu>
+                                    <p:message for="studyPk"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seriePk" class="col-sm-2 control-label">Serie</label>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu id="seriePk" styleClass="form-control" 
+                                                     required="true" requiredMessage="seleccione una serie para imagenes"
+                                                     value="#{studyCaseController.selected.serieSelected}" >
+                                        <p:ajax update="@form instancePk"/> 
+                                        <f:selectItem noSelectionOption="true"/>
+                                        <f:selectItems value="#{studyCaseController.selected.studyPk.seriesList}" var="serie" 
+                                                       itemLabel="#{serie.seriesDesc}" itemValue="#{serie}"/>
+                                    </h:selectOneMenu>
+                                    <p:message for="seriePk"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="instancePk" class="col-sm-2 control-label">Imagenes</label>
+                                <div class="col-sm-10">
+                                    <p:scrollPanel mode="native" style="width:100%;height:200px">
+                                        <p:selectManyMenu id="instancePk" converter="InstanceConverter"
+                                                          value="#{studyCaseController.selected.images}" style="width: 100%;"
+                                                          var="instance"  showCheckbox="true">
+                                            <f:selectItems value="#{studyCaseController.selected.serieSelected.instanceList}" var="instance" 
+                                                           itemLabel="#{instance.sopIuid}" 
+                                                           itemValue="#{instance}"></f:selectItems>
+
+                                            <p:column>
+                                                <h:graphicImage height="50" width="50"
+                                                                url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{instance.seriesFk.studyFk.studyIuid}&amp;seriesUID=#{instance.seriesFk.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{instance.sopIuid}" />
+                                            </p:column>
+                                        </p:selectManyMenu>
+                                    </p:scrollPanel>
+
+                                    <p:message for="instancePk"/>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Descripción de la Solicitud</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="subject" class="col-sm-2 control-label">Asunto</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="subject" styleClass="form-control" 
+                                                 required="true" requiredMessage="El dato es requerido"
+                                                 value="#{studyCaseController.selected.subject}" title="#{bundle.CreateStudyCaseTitle_subject}" />
+                                    <p:message for="subject"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="piezasDent" class="col-sm-2 control-label">Piezas Dentarias</label>
+                                <div class="col-sm-10">
+                                    <h:inputTextarea id="piezasDent" styleClass="form-control" 
+                                                     required="true" requiredMessage="El dato es requerido"
+                                                     value="#{studyCaseController.selected.piezasDent}" />
+
+                                    <p:message for="piezasDent"/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="rxType" class="col-sm-2 control-label">Tipo Rx</label>
+                                <div class="col-sm-10">
+                                    <h:inputText id="rxType" styleClass="form-control" 
+                                                 required="true" requiredMessage="El dato es requerido"
+                                                 value="#{studyCaseController.selected.rxType}" />
+                                    <p:message for="rxType"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority" class="col-sm-2 control-label">Prioridad</label>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu id="priority" styleClass="form-control"
+                                                     required="true" requiredMessage="El dato es requerido"
+                                                     value="#{studyCaseController.selected.priority}" title="#{bundle.CreateStudyCaseTitle_priority}" >
+                                        <f:selectItems value="#{priorityController.itemsAvailableSelectOne}"/>
+                                    </h:selectOneMenu>                
+                                    <p:message for="priority"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rxType" class="col-sm-2 control-label">Solicitante</label>
+                                <div class="col-sm-10">
+                                    #{UserSessionBean.current.capitalName}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Asignación</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="assignee" class="col-sm-2 control-label">Radiologo</label>
+                                <div class="col-sm-10">
+                                    <h:selectOneMenu id="assignee" styleClass="form-control" 
+                                                     value="#{studyCaseController.selected.assignee}" title="#{bundle.CreateStudyCaseTitle_assignee}" >
+                                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                                    </h:selectOneMenu>                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <h:commandLink action="#{studyCaseController.update}" value="#{bundle.EditStudyCaseSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditStudyCaseViewLink}"/>
+                <br />
+                <h:commandLink action="#{studyCaseController.prepareList}" value="#{bundle.EditStudyCaseShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditStudyCaseIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

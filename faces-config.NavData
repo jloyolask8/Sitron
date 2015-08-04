@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="upload.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="cruds/studyRequest/Create.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="resources/go/selectEntityType.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="resources/go/casoListNoForm.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="resources/go/scheduleEventDialog.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="resources/go/paginatorButtons.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="resources/go/paginatorBtnsBt.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="*" x="1650" y="150" zoom="true"/>
+        <Node id="resources/go/studiesTable.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="resources/go/vistasListBt.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="login.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="resources/go/selectChartType.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="login.jsp" x="2400" y="150" zoom="true"/>
+        <Node id="resources/go/filterView.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="resources/go/configMenuList.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="resources/go/visibility.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="cruds/studyRequest/List.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="template.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="cruds/studyRequest/Edit.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="cruds/studyRequest/View.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="resources/go/paginatorCounts.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="resources/go/customField.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="resources/go/vistasList.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="resources/go/entityCriteria.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="resources/go/casoList.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="resources/go/textAreaEditor.xhtml" x="1150" y="750" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

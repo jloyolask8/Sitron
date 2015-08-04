@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:go="http://xmlns.jcp.org/jsf/composite/go"
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"> <!--<![endif]-->
+
+    <f:view contentType="text/html" encoding="UTF-8">
+        <h:head>
+
+            <!-- BEGIN HEAD -->
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta content="width=device-width, initial-scale=1" name="viewport"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+            <meta name="description" content=""/>
+            <meta name="author" content=""/>
+
+            <!-- BEGIN GLOBAL MANDATORY STYLES -->
+            <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'/>
+            <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+            <!-- END GLOBAL MANDATORY STYLES -->
+            <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+            <!--<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>-->
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
+            <!-- END PAGE LEVEL PLUGIN STYLES -->
+            <!-- BEGIN PAGE STYLES -->
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+            <!-- END PAGE STYLES -->
+            <!-- BEGIN THEME STYLES -->
+            <!-- DOC: To use 'material design' style just load 'components-md.css' stylesheet instead of 'components.css' in the below style tag -->
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/layout5/css/layout.css" rel="stylesheet" type="text/css"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/layout5/css/custom.css" rel="stylesheet" type="text/css"/>
+            <!-- END THEME STYLES -->
+            <link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/favicon.ico"/>            
+
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
+
+            <ui:insert name="styles"></ui:insert>
+            <title><ui:insert name="title">Sitron | Admin Dashboard</ui:insert></title>
+
+            <!--<ui:insert name="styles"></ui:insert>-->
+
+            <h:outputScript name="jsf.js" library="javax.faces"/>
+
+
+            <style>
+
+                .ui-growl {
+                    top:125px !important;
+                    left: auto;
+                }
+                /*! cornerstone - v0.7.3 - 2015-04-04 | (c) 2014 Chris Hafey | https://github.com/chafey/cornerstone */
+                .cornerstone-enabled-image{
+                    -webkit-touch-callout:none;
+                    -webkit-user-select:none;
+                    -khtml-user-select:none;
+                    -moz-user-select:none;
+                    -ms-user-select:none;
+                    user-select:none;
+                    cursor:default
+                }
+            </style>
+
+            <!-- END HEAD -->
+        </h:head>
+        <h:body class="page-md page-header-fixed page-quick-sidebar-over-content">
+
+            <!-- BEGIN MAIN LAYOUT -->
+            <div class="wrapper">
+
+
+                <h:form id="mainform" style="height: 100%">
+                    <p:growl id="messages" life="10000" autoUpdate="true"  globalOnly="true" widgetVar="messages"
+                             showDetail="false">
+                    </p:growl>
+                </h:form>
+
+                
+                <!-- Begin Header -->
+                <go:header/>
+                <!-- Header END -->
+
+                <!-- Page Content BEGIN -->
+                <div class="container-fluid">
+                    <div class="page-content">
+                        <div class="row">
+                            <ui:insert name="body">Default Body</ui:insert>
+                        </div>
+                    </div>
+                    <!-- Page Content END -->
+
+                    <!-- BEGIN QUICK SIDEBAR -->
+                    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-login"></i></a>
+
+                    <!-- END QUICK SIDEBAR -->			
+
+                    <!-- Copyright BEGIN -->
+                    <p class="copyright-v2">2015 © Sitron. 
+                    </p>
+                    <!-- Copyright END -->
+                </div>
+
+            </div>
+
+            <!-- END MAIN LAYOUT -->
+            <a href="#index" class="go2top"><i class="icon-arrow-up"></i></a>
+
+            <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+            <!-- BEGIN CORE PLUGINS -->
+            <!--[if lt IE 9]>
+            <script src="assets/global/plugins/respond.min.js"></script>
+            <script src="assets/global/plugins/excanvas.min.js"></script> 
+            <![endif]-->
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->        
+
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <!--<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>-->
+            <!--<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>-->
+
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/global/scripts/metronic.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/layout5/scripts/layout.js" type="text/javascript"></script>
+            <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/layout5/scripts/quick-sidebar.js" type="text/javascript"></script>
+            <!--<script src="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/layout5/scripts/index.js" type="text/javascript"></script>-->
+            <!--<script src="#{facesContext.externalContext.requestContextPath}/resources/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>-->
+            <!-- END PAGE LEVEL SCRIPTS -->
+
+            <script>
+                jQuery(document).ready(function () {
+                    Metronic.init(); // init metronic core componets
+                    Layout.init(); // init layout
+//                    Index.init(); // init index page
+                    QuickSidebar.init(); // init quick sidebar
+//                    Tasks.initDashboardWidget(); // init tash dashboard widget
+                });
+            </script>
+            <!-- END JAVASCRIPTS -->
+
+            <ui:insert name="scripts"></ui:insert>
+
+        </h:body>
+    </f:view>
+</html>

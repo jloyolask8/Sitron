@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Información del Estudio"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStudyLabel_pk}"/>
+                    <h:outputText value="#{studyController.selected.pk}" title="#{bundle.ViewStudyTitle_pk}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyIuid}"/>
+                    <h:outputText value="#{studyController.selected.studyIuid}" title="#{bundle.ViewStudyTitle_studyIuid}"/>
+                   
+                    
+                    <h:outputText value="#{bundle.ViewStudyLabel_availability}"/>
+                    <h:outputText value="#{studyController.selected.availability}" title="#{bundle.ViewStudyTitle_availability}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_createdTime}"/>
+                    <h:outputText value="#{studyController.selected.createdTime}" title="#{bundle.ViewStudyTitle_createdTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudyLabel_modsInStudy}"/>
+                    <h:outputText value="#{studyController.selected.modsInStudy}" title="#{bundle.ViewStudyTitle_modsInStudy}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_numInstances}"/>
+                    <h:outputText value="#{studyController.selected.numInstances}" title="#{bundle.ViewStudyTitle_numInstances}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_numSeries}"/>
+                    <h:outputText value="#{studyController.selected.numSeries}" title="#{bundle.ViewStudyTitle_numSeries}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_cuidsInStudy}"/>
+                    <h:outputText value="#{studyController.selected.cuidsInStudy}" title="#{bundle.ViewStudyTitle_cuidsInStudy}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyCustom1}"/>
+                    <h:outputText value="#{studyController.selected.studyCustom1}" title="#{bundle.ViewStudyTitle_studyCustom1}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyCustom2}"/>
+                    <h:outputText value="#{studyController.selected.studyCustom2}" title="#{bundle.ViewStudyTitle_studyCustom2}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyCustom3}"/>
+                    <h:outputText value="#{studyController.selected.studyCustom3}" title="#{bundle.ViewStudyTitle_studyCustom3}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyDate}"/>
+                    <h:outputText value="#{studyController.selected.studyDate}" title="#{bundle.ViewStudyTitle_studyDate}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyDesc}"/>
+                    <h:outputText value="#{studyController.selected.studyDesc}" title="#{bundle.ViewStudyTitle_studyDesc}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyId}"/>
+                    <h:outputText value="#{studyController.selected.studyId}" title="#{bundle.ViewStudyTitle_studyId}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_studyTime}"/>
+                    <h:outputText value="#{studyController.selected.studyTime}" title="#{bundle.ViewStudyTitle_studyTime}"/>
+                    <h:outputText value="#{bundle.ViewStudyLabel_updatedTime}"/>
+                    <h:outputText value="#{studyController.selected.updatedTime}" title="#{bundle.ViewStudyTitle_updatedTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudyLabel_patientFk}"/>
+                    <h:outputText value="#{studyController.selected.patientFk.patName}" title="#{bundle.ViewStudyTitle_patientFk}"/>
+                </h:panelGrid>
+
+                <br/>
+                <h2>Series</h2>
+                <br/>
+
+                <h:dataTable value="#{studyController.selected.seriesList}" var="item" 
+                             styleClass="table table-hover table-responsive">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CreatedTime"/>
+                        </f:facet>
+                        <h:outputText value="#{item.createdTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Institution"/>
+                        </f:facet>
+                        <h:outputText value="#{item.institution}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Department"/>
+                        </f:facet>
+                        <h:outputText value="#{item.department}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Modality"/>
+                        </f:facet>
+                        <h:outputText value="#{item.modality}"/>
+                    </h:column>
+                   
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="SeriesDesc"/>
+                        </f:facet>
+                        <h:outputText value="#{item.seriesDesc}"/>
+                    </h:column>
+                    <h:column rendered="false">
+                        <f:facet name="header">
+                            <h:outputText value="SeriesIuid"/>
+                        </f:facet>
+                        <h:outputText value="#{item.seriesIuid}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="StationName"/>
+                        </f:facet>
+                        <h:outputText value="#{item.stationName}"/>
+                    </h:column>
+
+                    <h:column rendered="false">
+                        <f:facet name="header">
+                            <h:outputText value="InstCodeFk"/>
+                        </f:facet>
+                        <h:outputText value="#{item.instCodeFk}"/>
+                    </h:column>
+                    <h:column rendered="false">
+                        <f:facet name="header">
+                            <h:outputText value="StudyFk"/>
+                        </f:facet>
+                        <h:outputText value="#{item.studyFk}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="instances"/>
+                        </f:facet>
+                        
+                        <p:lightBox styleClass="imagebox" id="lighbox1">
+                            <ui:repeat value="#{item.instanceList}" var="instance">
+                                <h:outputLink style="margin: 1px;"
+                                    value="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{item.studyFk.studyIuid}&amp;seriesUID=#{item.seriesIuid}&amp;objectUID=#{instance.sopIuid}">
+                                    
+                                    <h:graphicImage height="50" width="50"
+                                        url="http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&amp;studyUID=#{item.studyFk.studyIuid}&amp;seriesUID=#{item.seriesIuid}&amp;objectUID=#{instance.sopIuid}"/>
+                                 
+                                </h:outputLink>
+                            </ui:repeat>
+                        </p:lightBox>
+                        
+                    </h:column>
+
+                    
+
+                </h:dataTable>
+
+
+                <br />
+                <h:commandLink action="#{studyController.destroyAndView}" value="#{bundle.ViewStudyDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewStudyEditLink}"/>
+                <br />
+                <h:commandLink action="#{studyController.prepareCreate}" value="#{bundle.ViewStudyCreateLink}" />
+                <br />
+                <h:commandLink action="#{studyController.prepareList}" value="#{bundle.ViewStudyShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewStudyIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

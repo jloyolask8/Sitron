@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
+            <h:form>
+                <ul class="nav navbar-nav text-uppercase">
+
+                    <li class="dropdown dropdown-fw  #{view.viewId.contains('dashboard') ? 'open selected':''}">
+                        <h:link outcome="/cruds/dashboard" value="Dashboard"/>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+
+                            <li class="#{view.viewId.contains('dashboard') ? 'active':''}">
+                                <h:link outcome="/cruds/dashboard" value="dashboard"/></li>
+
+                        </ul>
+                    </li>
+
+<h:panelGroup rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
+                    <li class="dropdown dropdown-fw  #{view.viewId.contains('upload') ? 'open selected':''}">
+                        <h:link outcome="/cruds/upload" value="Imagenes"/>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+
+                            <li class="#{view.viewId.contains('upload') ? 'active':''}">
+                                <h:link outcome="/cruds/upload" value="Carga de Imagenes"/></li>
+
+                        </ul>
+                    </li>
+</h:panelGroup>
+                    
+                    <li class="dropdown dropdown-fw  #{view.viewId.contains('studyRequest') ? 'open selected':''}">
+                        <h:commandLink action="#{studyCaseController.prepareList()}" value="Tareas"/>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+
+                            <h:panelGroup rendered="#{UserSessionBean.current.admin}">
+                                <li class="#{view.viewId.contains('studyRequest/List') ? 'active':''}">
+                                    <h:commandLink action="#{studyCaseController.prepareTodasTareasList()}" value="Todas"/></li>
+                            </h:panelGroup>
+
+                            <li class="#{view.viewId.contains('studyRequest/List') ? 'active':''}">
+                                <h:commandLink action="#{studyCaseController.prepareMisTareasList()}" value="Mis Tareas"/></li>
+                            <h:panelGroup rendered="#{UserSessionBean.current.admin or UserSessionBean.current.radiologist}">
+                                <li class="#{view.viewId.contains('studyRequest/List') ? 'active':''}">
+                                    <h:commandLink action="#{studyCaseController.prepareTareasDispoiblesList()}" value="Tareas disponibles"/></li>
+                            </h:panelGroup>
+
+                            <h:panelGroup rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
+                            <li class="#{view.viewId.contains('studyRequest/Create') ? 'active':''}">
+                                <h:commandLink action="#{studyCaseController.prepareCreate}" value="#{bundle.ListStudyCaseCreateLink}"/></li>
+                            </h:panelGroup>
+                            
+                        </ul>
+                    </li>
+
+
+
+
+
+
+                    <li class="dropdown dropdown-fw  #{view.viewId.contains('account') ? 'open selected':''}">
+                        <h:commandLink action="/cruds/account">
+                            Cuenta
+                        </h:commandLink>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+
+                            <li class="#{view.viewId.contains('account') ? 'active':''}">
+                                <h:commandLink action="/cruds/account">
+                                    <i class="fa fa-2x fa-user"></i> #{UserSessionBean.current.idUsuario}
+                                </h:commandLink>    
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="dropdown dropdown-fw  #{view.viewId.contains('faq') ? 'open selected':''}">
+                        <h:commandLink 
+                            action="/cruds/faq">
+                            <i class="fa fa-life-saver"></i> Ayúda
+                        </h:commandLink>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+
+                            <li class="#{view.viewId.contains('faq') ? 'active':''}">
+                                <h:commandLink 
+                                    action="/cruds/faq">
+                                    <i class="fa fa-2x fa-life-saver"></i> Ayúda
+                                </h:commandLink></li>
+
+                        </ul>
+                    </li>
+
+                    <h:panelGroup rendered="#{UserSessionBean.current.admin}">
+                        <li class="dropdown dropdown-fw  #{view.viewId.contains('admin') ? 'open selected':''}">
+                            <h:link outcome="/cruds/admin/usuario/List" value="Admin Panel"/>
+                            <ul class="dropdown-menu dropdown-menu-fw">
+
+                                <li class="#{view.viewId.contains('usuario') ? 'active':''}">
+                                    <h:link outcome="/cruds/admin/usuario/List" value="Usuarios"/>
+                                </li>
+
+                                <li class="#{view.viewId.contains('patient') ? 'active':''}">
+                                    <h:link outcome="/cruds/admin/patient/List" value="Pacientes"/>
+                                </li>
+
+                                <li class="#{view.viewId.contains('study/') ? 'active':''}">
+                                    <h:link outcome="/cruds/admin/study/List" value="Estudios"/>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+
+
+                </ul>
+            </h:form>
+        </div>
+    </cc:implementation>
+</html>

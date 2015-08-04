@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="controllerMBean" required="true" /> 
+        <cc:attribute name="user" required="true" /> 
+        <cc:attribute name="update" default=":mainform:messages" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form id="vistasForm">
+
+            <p:dataList paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                        type="ordered" rows="10" style="width: 100%;border: none;"
+                        value="#{cc.attrs.controllerMBean.getAllAgentVistasItems()}" var="vista1" 
+                        emptyMessage="#{bundle.emptyViews}">
+
+
+                <p:column>
+                    <p:commandLink id="vistalink1" ajax="true" 
+                                   update="#{cc.attrs.update}"
+                                   actionListener="#{cc.attrs.controllerMBean.applyViewFilter(vista1)}" 
+                                   value="#{vista1.nombre}" style="font-weight: bold" 
+                                   styleClass="ui-state-default #{vista1 eq cc.attrs.controllerMBean.vista ? 'ui-state-hover':''}" />
+                    <p:tooltip for="vistalink1" value="#{vista1.descripcion}" />  
+
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{cc.attrs.controllerMBean.countItemsVista(vista1)}" 
+                                  styleClass="ui-li-count"/>
+                </p:column>
+            </p:dataList>
+      
+            <div align="right">
+                <p:panelGrid columns="2" styleClass="filtersGrid" >
+                <p:commandLink ajax="false" action="#{vistaController.prepareList()}"
+                               rendered="#{filtroAcceso.verificarAccesoAFuncionAdministrarVistas()}"
+                               value="Administrar Vistas" />
+                
+                <p:commandLink actionListener="#{cc.attrs.controllerMBean.resetVistas}"
+                               update="#{cc.attrs.update}"
+                               title="Refrescar Vistas">
+                    <h:outputText styleClass="ui-icon ui-icon-refresh" />
+                </p:commandLink>
+            </p:panelGrid>
+            </div>
+            
+
+
+          
+
+        </h:form>
+    </cc:implementation>
+</html>

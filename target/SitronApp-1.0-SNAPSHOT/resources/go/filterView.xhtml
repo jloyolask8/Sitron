@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;"> 
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:composite="http://java.sun.com/jsf/composite"
+          xmlns:go="http://java.sun.com/jsf/composite/go"
+          xmlns:ui="http://java.sun.com/jsf/facelets">
+        <composite:interface>
+            <composite:attribute name="controllerMBean" required="true" /> 
+            <composite:attribute name="vista" required="true" /> 
+            <composite:attribute name="filterHelper" required="true" /> 
+            <composite:attribute name="showApplyAction" default="true" />
+            <composite:attribute name="showSearchBar" default="true" />
+            <composite:attribute name="showSaveAs" default="true" />
+            <composite:attribute name="showEdit" default="true" />
+            <composite:attribute name="titleIconClass" default="" /> 
+            <composite:attribute name="canChangeFilters" default="true" />
+            <composite:attribute name="update" default=":mainform:messages" />
+            <composite:attribute name="vistaControllerBackOutcome" required="false"  />
+            <composite:facet name="header" />
+            <composite:facet name="saveView" />
+        </composite:interface>
+
+        <composite:implementation>
+
+
+            <h:panelGroup layout="block" styleClass="input-group" rendered="#{cc.attrs.showSearchBar}">
+
+                <h:inputText id="query" styleClass="form-control no-border" 
+                             value="#{cc.attrs.controllerMBean.query}"  />
+                <p:watermark for="query" value="#{empty cc.attrs.controllerMBean.vista ? 'Search':'Search in '.concat(cc.attrs.controllerMBean.vista.nombre)}"/>
+
+                <span  class="input-group-btn">
+
+                    <p:commandButton id="simpleSearchBtn" ajax="true" update="@form #{cc.attrs.update}"                                                      
+                                     style="background: white;width: 1px;" 
+                                     styleClass="btn btn-outline no-border no-border-radius" value=""
+                                     actionListener="#{cc.attrs.controllerMBean.filter()}">
+
+                    </p:commandButton>
+
+                </span>
+
+                <span class="input-group-btn hidden-xs">
+
+                    <button id="filterBtnTour" class="btn btn-default" type="button" 
+                            data-toggle="collapse" data-target="#filtersCollapse" 
+                            aria-expanded="false" aria-controls="filtersCollapse">
+                        <i class="fa fa-filter"></i>
+                    </button>
+
+
+
+                </span>
+
+
+            </h:panelGroup>
+
+            <div id="filtersCollapse" class="#{cc.attrs.showSearchBar ? 'collapse':''}">
+
+                <h:panelGroup id="panelFilter" layout="block" styleClass="panel"  
+                              style="border: none !important;"  
+                              >
+
+                    <div class="panel-body">
+                        <ui:repeat id="filtrosVista" 
+                                   value="#{cc.attrs.vista.filtrosVistaList}" var="filtro">  
+
+                            <go:entityCriteria id="entityCriteria"
+                                               removeActionListener="#{cc.attrs.vista.removeFiltroFromVista(filtro)}"
+                                               addActionListener="#{cc.attrs.vista.addNewFiltroVista(filtro)}"
+                                               filterHelper="#{cc.attrs.filterHelper}" filtro="#{filtro}" 
+                                               canChangeFilters="#{cc.attrs.canChangeFilters}"
+                                               canRemoveFilter="#{cc.attrs.vista.canRemoveFiltroVista()}"
+                                               requiredAttribute="#{cc.attrs.showApplyAction?'false':'true'}"/>
+
+                        </ui:repeat>
+                    </div>
+
+                    <div class="panel-footer bg-overlay">
+                        <div class="btn-toolbar">
+                            <div class="btn-group">
+                                <p:outputLabel for="allMustMatch" value="Cuando "/>
+                                <p:selectBooleanButton id="allMustMatch" style="height: 20px; font-size: x-small !important;"
+                                                       value="#{cc.attrs.vista.allMustMatch}" 
+                                                       onLabel="Todas" offLabel="Cualquiera" 
+                                                       >
+                                    <p:ajax update="#{cc.attrs.update}" listener="#{cc.attrs.controllerMBean.filter()}" />
+                                </p:selectBooleanButton>
+                                <p:outputLabel for="allMustMatch" value="se cumplan"/>
+                            </div>
+                         
+                            <div class="btn-group">
+                                <p:commandLink id="linkAplicar" ajax="true" update="#{cc.attrs.update}" 
+                                               rendered="#{cc.attrs.showApplyAction}" styleClass="btn btn-sm btn-primary btn-flat"
+                                               title="Aplicar Filtro" 
+                                               disabled="#{not cc.attrs.canChangeFilters}"
+                                               actionListener="#{cc.attrs.controllerMBean.filter()}">
+                                    <i class="fa fa-filter"></i> #{empty cc.attrs.vista.filtrosVistaList ? 'Desplegar Todo':'Filtrar' }
+                                </p:commandLink>  
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <script type="text/javascript">
+
+
+
+                        $(function () {
+
+
+                            $("select.select2Input").select2({
+                                dropdownAutoWidth: true,
+                                allowClear: true
+                            });
+
+                            $("select.select2Multiple").select2({
+                                dropdownAutoWidth: true,
+                                allowClear: true
+                            });
+
+                            $('.datetimepicker').datetimepicker({
+                                language: 'es',
+                                format: 'dd/mm/yyyy hh:ii',
+                                viewformat: 'dd/mm/yyyy hh:ii',
+                                todayBtn: true,
+                                autoclose: true,
+                                todayHighlight: true,
+                                weekStart: 1,
+                                forceParse: true
+                            });
+
+                           
+
+
+
+                            $(".daterangepicker").daterangepicker({
+                                timePicker: true,
+                                timePickerIncrement: 15,
+                                format: 'DD/MM/YYYY h:mm'
+                            });
+                        });
+                    </script>
+
+                </h:panelGroup>
+            </div>
+
+        </composite:implementation>
+    </html>
+
+
+
+
