@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informe" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b1d1296-ae77-40da-9002-5af4b0dfaaaa">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
-	<property name="ireport.x" value="61"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informe" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="6b1d1296-ae77-40da-9002-5af4b0dfaaaa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="336"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -32,348 +32,619 @@
 	</style>
 	<subDataset name="Table Dataset 1" uuid="7b4c5380-2dc9-4412-9736-e74c0c58c763"/>
 	<parameter name="studyCase" class="com.sitron.persistence.entities.StudyCase"/>
+	<parameter name="image0" class="java.io.InputStream"/>
+	<parameter name="image1" class="java.io.InputStream"/>
+	<parameter name="image2" class="java.io.InputStream"/>
+	<parameter name="image3" class="java.io.InputStream"/>
+	<parameter name="image4" class="java.io.InputStream"/>
+	<parameter name="image5" class="java.io.InputStream"/>
+	<parameter name="image6" class="java.io.InputStream"/>
+	<parameter name="image7" class="java.io.InputStream"/>
+	<parameter name="image8" class="java.io.InputStream"/>
+	<parameter name="image9" class="java.io.InputStream"/>
+	<parameter name="images_total" class="java.lang.Integer"/>
+	<parameter name="signature" class="java.io.InputStream"/>
+	<group name="page2">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+	</group>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="792" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="755" width="572" height="20" forecolor="#316AC5" backcolor="#5182BB" uuid="3a74e1e5-67f5-4229-b355-23e6906c259e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="755" width="572" height="20" forecolor="#FFFFFF" uuid="234e7682-f48c-4cc6-8175-9506fcc9b6fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SITRON - Servicio de Informe Telerradiográfico Online - www.sitron.cl]]></text>
+			</staticText>
+		</band>
 	</background>
 	<title>
-		<band height="64" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="157" height="43" uuid="5203999f-0c88-44da-9d29-9e34074e206a"/>
-				<imageExpression><![CDATA["logo2.png"]]></imageExpression>
-			</image>
+		<band height="55" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="35" width="572" height="20" forecolor="#316AC5" backcolor="#5182BB" uuid="9ee92b73-8c3d-4351-9e90-8726ea2a727e"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
 			<staticText>
-				<reportElement x="157" y="8" width="235" height="35" uuid="4ecde3ad-213c-41cf-b5bd-f6d5a233966e"/>
-				<textElement textAlignment="Center">
-					<font size="15" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				<reportElement x="0" y="35" width="167" height="20" forecolor="#FFFFFF" uuid="4ecde3ad-213c-41cf-b5bd-f6d5a233966e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Roboto-Regular" size="13" isBold="true" isUnderline="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[INFORME RADIOGRÁFICO]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="488" y="0" width="84" height="50" uuid="0c0bd642-30e2-4ba6-a8e8-9ab58d067d90"/>
-				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
-					<jr:codeExpression><![CDATA[$P{studyCase}.getIdRequest()]]></jr:codeExpression>
-				</jr:Codabar>
-			</componentElement>
+			<image>
+				<reportElement stretchType="RelativeToBandHeight" x="450" y="15" width="122" height="19" uuid="5203999f-0c88-44da-9d29-9e34074e206a"/>
+				<imageExpression><![CDATA["logo2.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="562" splitType="Stretch">
+		<band height="737" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="224" width="572" height="16" backcolor="#EEEEEE" uuid="9134c80b-c008-47c8-9019-6f8a7a802eec"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="192" width="572" height="16" backcolor="#EEEEEE" uuid="38d0e077-8cd6-4d7d-bed1-fc5cbe15463d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="160" width="572" height="16" backcolor="#EEEEEE" uuid="69c98375-11e7-4c01-b516-834b66ee5cbc"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="240" width="572" height="16" backcolor="#FAFAFA" uuid="1c2e26ec-a119-42e0-afcd-503540a4c2ff"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="208" width="572" height="16" backcolor="#FAFAFA" uuid="aa8fb221-38f9-46a4-87e1-7a88c82d1c28"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="176" width="572" height="16" backcolor="#FAFAFA" uuid="352ba0c5-c74a-46bd-a20b-844aa4fd96e3"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="96" width="572" height="16" backcolor="#FAFAFA" uuid="c0d7679a-7aa6-47b6-9cc1-44b1dcad5347"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="112" width="572" height="16" backcolor="#EEEEEE" uuid="3b6d2a3f-719a-4b49-a266-4ff3045a19de"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="128" width="572" height="16" backcolor="#FAFAFA" uuid="5297b6c0-f949-4ece-9cf2-42c8f1c1d8a7"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="80" width="572" height="16" backcolor="#EEEEEE" uuid="f9dc1de7-d3f9-4dc4-89d3-978321707a79"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="32" width="572" height="16" backcolor="#FAFAFA" uuid="5745931e-0b36-45c9-ba05-486241498b47"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="48" width="572" height="16" backcolor="#EEEEEE" uuid="f46a4996-042a-433e-b319-b4b2d0e5804b"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="64" width="572" height="16" backcolor="#FAFAFA" uuid="a3170dda-8ee3-45ab-81a7-f6e663e3a37b"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="16" width="572" height="16" backcolor="#EEEEEE" uuid="57dad3ef-50f9-4425-8de6-8e75d50cf048"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="16" backcolor="#CCCCCC" uuid="1104fcea-b32a-4080-97fa-18e9c76f0abc"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
 			<textField>
-				<reportElement x="267" y="350" width="289" height="212" uuid="5372844a-8ca6-4885-b09f-e75b741f786f"/>
-				<box topPadding="2" leftPadding="2" bottomPadding="1" rightPadding="1">
-					<pen lineWidth="0.25" lineStyle="Dashed"/>
-					<topPen lineWidth="0.25" lineStyle="Dashed"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed"/>
+				<reportElement mode="Opaque" x="276" y="272" width="296" height="324" backcolor="#FFFFFF" uuid="5372844a-8ca6-4885-b09f-e75b741f786f"/>
+				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
+					<pen lineWidth="0.0" lineStyle="Dashed"/>
+					<topPen lineWidth="0.0" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.0" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.0" lineStyle="Dashed"/>
 				</box>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getInformText()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="230" width="201" height="20" uuid="e87299ae-35dd-45ee-b55b-f2208bf601c3"/>
+				<reportElement x="355" y="177" width="201" height="20" uuid="e87299ae-35dd-45ee-b55b-f2208bf601c3"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getRxType()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="250" width="201" height="20" uuid="d743fb52-2300-4aa0-bcc8-68f6bd80c3be"/>
+				<reportElement x="355" y="193" width="201" height="20" uuid="d743fb52-2300-4aa0-bcc8-68f6bd80c3be"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPiezasDent()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="210" width="201" height="20" uuid="a5347711-1b65-46d3-aa64-d2fd56932a76"/>
+				<reportElement x="355" y="161" width="201" height="20" uuid="a5347711-1b65-46d3-aa64-d2fd56932a76"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Fecha: "+(($P{studyCase}.getInformedAt() != null) ?
     $P{studyCase}.getInformedAt() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="230" width="201" height="20" uuid="85f4e256-78a3-4959-8b71-22a70f7672e8"/>
+				<reportElement x="76" y="177" width="201" height="20" uuid="85f4e256-78a3-4959-8b71-22a70f7672e8"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPatientFk().getPatSex()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="210" width="201" height="20" uuid="a421da3a-90cf-4deb-a849-39008c8129a2"/>
+				<reportElement x="76" y="161" width="201" height="20" uuid="a421da3a-90cf-4deb-a849-39008c8129a2"/>
 				<textElement>
-					<font isUnderline="false"/>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPatientFk().getPatName()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="267" y="330" width="289" height="20" uuid="f768922d-76d3-4d9b-92f3-ead2f9489f4e"/>
+				<reportElement x="7" y="2" width="270" height="20" uuid="4be150c8-9364-4e78-aad3-061b44cfd11a"/>
 				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Diagnóstico Radiográfico]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="190" width="270" height="20" uuid="bee801d4-ca9a-40cf-a554-5040e00c915d"/>
-				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Datos Paciente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="12" y="0" width="270" height="20" uuid="4be150c8-9364-4e78-aad3-061b44cfd11a"/>
-				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Datos Solicitante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="190" width="270" height="20" uuid="d284187b-49e5-4fb9-b238-010941ad7618"/>
+				<reportElement x="286" y="2" width="270" height="20" uuid="dc1bfcaa-254b-471b-82cd-d3cbc6af2e5d"/>
 				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Datos Radiografías]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="291" y="0" width="270" height="20" uuid="dc1bfcaa-254b-471b-82cd-d3cbc6af2e5d"/>
-				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Datos Radiologo]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="119" width="210" height="20" uuid="13c571b8-ed4a-473c-b569-ddada335f9c5"/>
+				<reportElement x="76" y="98" width="210" height="20" uuid="13c571b8-ed4a-473c-b569-ddada335f9c5"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="159" width="210" height="20" uuid="56bb70a6-4ad0-4cb4-9de1-ccd6f53bee3e"/>
+				<reportElement x="76" y="130" width="210" height="20" uuid="56bb70a6-4ad0-4cb4-9de1-ccd6f53bee3e"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPriority().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="139" width="210" height="20" uuid="cf916546-8e1c-42eb-8fb4-f455191dc695"/>
+				<reportElement x="76" y="114" width="210" height="20" uuid="cf916546-8e1c-42eb-8fb4-f455191dc695"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getRut()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="100" width="210" height="20" uuid="ddbc6a5c-daed-4399-b235-ef11f588fdb5"/>
+				<reportElement x="76" y="81" width="210" height="20" uuid="ddbc6a5c-daed-4399-b235-ef11f588fdb5"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($P{studyCase}.getCreatedAt() != null) ?
     $P{studyCase}.getCreatedAt() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="80" width="210" height="20" uuid="c65b48f5-74cd-4115-9eb6-7d396589fc62"/>
+				<reportElement x="76" y="66" width="210" height="20" uuid="c65b48f5-74cd-4115-9eb6-7d396589fc62"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($P{studyCase}.getCreatedAt() != null) ?
     $P{studyCase}.getCreatedAt() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="20" width="210" height="20" uuid="8623d6b6-8dac-4a7b-bd47-845d11b3aa6d"/>
+				<reportElement x="76" y="18" width="210" height="20" uuid="8623d6b6-8dac-4a7b-bd47-845d11b3aa6d"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="40" width="210" height="20" uuid="f46805f9-9585-447e-adba-c1f84a74e760"/>
+				<reportElement x="76" y="34" width="210" height="20" uuid="f46805f9-9585-447e-adba-c1f84a74e760"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="60" width="210" height="20" uuid="9c24d755-f77e-4595-a6f7-340d4db6f852"/>
+				<reportElement x="76" y="50" width="210" height="20" uuid="9c24d755-f77e-4595-a6f7-340d4db6f852"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getRol()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="250" width="201" height="20" uuid="52b8b430-9277-41ae-bf32-2eede4834201"/>
+				<reportElement x="76" y="193" width="201" height="20" uuid="52b8b430-9277-41ae-bf32-2eede4834201"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPatientFk().getPatBirthdate()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="270" width="201" height="20" uuid="bc33244c-ae1b-4e35-a13c-c5450f2b47df"/>
+				<reportElement x="364" y="209" width="201" height="20" uuid="bc33244c-ae1b-4e35-a13c-c5450f2b47df"/>
 				<textElement>
-					<font size="10" isBold="false"/>
+					<font fontName="Roboto-Regular" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getSubject()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="290" width="201" height="20" uuid="45852da6-f6af-4df5-b613-9581643cdbbd"/>
+				<reportElement x="364" y="226" width="201" height="20" uuid="45852da6-f6af-4df5-b613-9581643cdbbd"/>
 				<textElement>
-					<font size="10" isBold="false"/>
+					<font fontName="Roboto-Regular" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["???"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="310" width="201" height="20" uuid="43ef9336-0b47-4b93-8941-f681dde5b722"/>
+				<reportElement x="364" y="242" width="201" height="20" uuid="43ef9336-0b47-4b93-8941-f681dde5b722"/>
 				<textElement>
-					<font size="10" isBold="false"/>
+					<font fontName="Roboto-Regular" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["???"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="60" width="223" height="20" uuid="531d0fcd-419d-424a-9c93-a4bea1d2e324"/>
+				<reportElement x="355" y="50" width="223" height="20" uuid="531d0fcd-419d-424a-9c93-a4bea1d2e324"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getRol()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="20" width="223" height="20" uuid="c2c20418-bdfb-41ae-8b89-5bb3fc864492"/>
+				<reportElement x="355" y="18" width="223" height="20" uuid="c2c20418-bdfb-41ae-8b89-5bb3fc864492"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="40" width="223" height="20" uuid="68879a39-7e15-467e-b36b-59d3f89f1113"/>
+				<reportElement x="355" y="34" width="223" height="20" uuid="68879a39-7e15-467e-b36b-59d3f89f1113"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="159" width="212" height="20" uuid="337b6125-54de-48d5-b31f-11f4a144acfa"/>
+				<reportElement x="355" y="130" width="212" height="20" uuid="337b6125-54de-48d5-b31f-11f4a144acfa"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPriority().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="100" width="223" height="20" uuid="2ae9909f-dbfb-4998-a074-c6aae86a3a7f"/>
+				<reportElement x="355" y="81" width="223" height="20" uuid="2ae9909f-dbfb-4998-a074-c6aae86a3a7f"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($P{studyCase}.getFechaAsignacion() != null) ?
     $P{studyCase}.getFechaAsignacion() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="80" width="223" height="20" uuid="6fa9a56f-0bd6-49dc-a350-bff5fed1cafe"/>
+				<reportElement x="355" y="66" width="223" height="20" uuid="6fa9a56f-0bd6-49dc-a350-bff5fed1cafe"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($P{studyCase}.getFechaAsignacion() != null) ?
     $P{studyCase}.getFechaAsignacion() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="140" width="212" height="20" uuid="9deff0e8-f4a4-4ee4-be0e-6180401e6dc2"/>
+				<reportElement x="355" y="114" width="212" height="20" uuid="9deff0e8-f4a4-4ee4-be0e-6180401e6dc2"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[(($P{studyCase}.getInformedAt() != null) ?
     $P{studyCase}.getInformedAt() : "")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="120" width="223" height="20" uuid="cd8f2de6-e653-4287-ba15-d6ff1db05b6a"/>
+				<reportElement x="355" y="98" width="223" height="20" uuid="cd8f2de6-e653-4287-ba15-d6ff1db05b6a"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getRut()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="12" y="20" width="69" height="20" uuid="b58fc472-ae0d-4bc4-9b27-7e5c37085911"/>
+				<reportElement x="7" y="18" width="69" height="20" uuid="b58fc472-ae0d-4bc4-9b27-7e5c37085911"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Razón:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="40" width="69" height="20" uuid="f63300a7-e92c-4293-9122-245112ddc654"/>
+				<reportElement x="7" y="34" width="69" height="20" uuid="f63300a7-e92c-4293-9122-245112ddc654"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="60" width="69" height="20" uuid="ed3d563f-4348-4e2e-899d-87ddcd586592"/>
+				<reportElement x="7" y="50" width="69" height="20" uuid="ed3d563f-4348-4e2e-899d-87ddcd586592"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="80" width="69" height="20" uuid="4c844a43-5100-4b80-a271-21c8d7a375c6"/>
+				<reportElement x="7" y="66" width="69" height="20" uuid="4c844a43-5100-4b80-a271-21c8d7a375c6"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Fecha subida:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="99" width="69" height="20" uuid="f92eca7f-6473-4a32-8a91-158e06076df9"/>
+				<reportElement x="7" y="81" width="69" height="20" uuid="f92eca7f-6473-4a32-8a91-158e06076df9"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Hora:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="119" width="69" height="20" uuid="1d0f2f39-f50a-4a45-b8d5-bf4c7fe7161e"/>
+				<reportElement x="7" y="98" width="69" height="20" uuid="1d0f2f39-f50a-4a45-b8d5-bf4c7fe7161e"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Clínico:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="139" width="69" height="20" uuid="6b68c04b-0bda-470e-b7cf-800b51305f4a"/>
+				<reportElement x="7" y="114" width="69" height="20" uuid="6b68c04b-0bda-470e-b7cf-800b51305f4a"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Rut:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="159" width="69" height="20" uuid="296a8321-1036-4aa3-9804-b0100e2e6340"/>
+				<reportElement x="7" y="130" width="69" height="20" uuid="296a8321-1036-4aa3-9804-b0100e2e6340"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Prioridad:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="20" width="58" height="20" uuid="c4e5739b-377d-446f-8455-02fcc1001ce7"/>
+				<reportElement x="286" y="18" width="58" height="20" uuid="c4e5739b-377d-446f-8455-02fcc1001ce7"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Razón:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="139" width="69" height="20" uuid="b53b992c-34de-419a-b099-9518df8722f2"/>
+				<reportElement x="286" y="114" width="69" height="20" uuid="b53b992c-34de-419a-b099-9518df8722f2"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Tiempo total:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="80" width="58" height="20" uuid="11399f24-d216-4c9d-a6f4-400656e06ee2"/>
+				<reportElement x="286" y="66" width="58" height="20" uuid="11399f24-d216-4c9d-a6f4-400656e06ee2"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="60" width="58" height="20" uuid="5af44f18-9441-4629-a014-50f93b8fb058"/>
+				<reportElement x="286" y="50" width="58" height="20" uuid="5af44f18-9441-4629-a014-50f93b8fb058"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="159" width="69" height="20" uuid="d01c3de9-c90c-4059-b480-28394ed206c5"/>
+				<reportElement x="286" y="130" width="69" height="20" uuid="d01c3de9-c90c-4059-b480-28394ed206c5"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Prioridad:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="119" width="58" height="20" uuid="a0b980b5-d1c9-469b-a7cc-7f66c1651803"/>
+				<reportElement x="286" y="98" width="58" height="20" uuid="a0b980b5-d1c9-469b-a7cc-7f66c1651803"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Rut:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="99" width="58" height="20" uuid="8b583631-7540-41f6-874f-e99b023f2630"/>
+				<reportElement x="286" y="81" width="58" height="20" uuid="8b583631-7540-41f6-874f-e99b023f2630"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Hora recibida:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="40" width="58" height="20" uuid="87c4eabf-4501-4af5-a02a-4ea34d4d4c8a"/>
+				<reportElement x="286" y="34" width="58" height="20" uuid="87c4eabf-4501-4af5-a02a-4ea34d4d4c8a"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="210" width="69" height="20" uuid="6e90b4d8-c9bd-41ad-ae7b-a51b06badc1a"/>
+				<reportElement x="7" y="161" width="69" height="20" uuid="6e90b4d8-c9bd-41ad-ae7b-a51b06badc1a"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Nombre:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="250" width="69" height="20" uuid="fcbd6221-99de-4226-987e-bda78cf30ba8"/>
+				<reportElement x="7" y="193" width="69" height="20" uuid="fcbd6221-99de-4226-987e-bda78cf30ba8"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Fecha nac:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="230" width="69" height="20" uuid="b7af8331-31ac-4eb7-ae09-ce2dbe3e3409"/>
+				<reportElement x="7" y="177" width="69" height="20" uuid="b7af8331-31ac-4eb7-ae09-ce2dbe3e3409"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Sexo:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="210" width="69" height="20" uuid="7ed75d6d-2546-42af-8b2c-f3790db2d599"/>
+				<reportElement x="286" y="161" width="69" height="20" uuid="7ed75d6d-2546-42af-8b2c-f3790db2d599"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="282" y="270" width="78" height="20" uuid="034f0398-220e-481b-a21f-f46dffbd98f3"/>
+				<reportElement x="286" y="209" width="78" height="20" uuid="034f0398-220e-481b-a21f-f46dffbd98f3"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Diagnostico clinico:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="250" width="69" height="20" uuid="217b655d-d7f5-4e7f-88e1-47db84781d96"/>
+				<reportElement x="286" y="193" width="69" height="20" uuid="217b655d-d7f5-4e7f-88e1-47db84781d96"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Piezas:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="282" y="309" width="78" height="20" uuid="1fd40af9-84a8-48b0-829f-ecee4cc752c4"/>
+				<reportElement x="286" y="242" width="78" height="20" uuid="1fd40af9-84a8-48b0-829f-ecee4cc752c4"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="282" y="289" width="78" height="20" uuid="db845248-6eaf-40e0-8c3f-6a041d9cc894"/>
+				<reportElement x="286" y="226" width="78" height="20" uuid="db845248-6eaf-40e0-8c3f-6a041d9cc894"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Se desea evaluar: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="230" width="69" height="20" uuid="da3a889b-c987-47b1-802f-e0488200151e"/>
+				<reportElement x="286" y="177" width="69" height="20" uuid="da3a889b-c987-47b1-802f-e0488200151e"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Tipo:]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement x="0" y="144" width="572" height="16" backcolor="#CCCCCC" uuid="b16f75c0-5f4c-4e5f-b8c9-cc4d3bdeec4a"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="275" y="0" width="1" height="700" forecolor="#CCCCCC" uuid="39682ef2-01d6-4845-ad38-71aad7e00d4e"/>
+			</line>
 			<staticText>
-				<reportElement x="12" y="330" width="241" height="20" uuid="e097f6cc-5630-4e03-8351-5d20ce37b462"/>
+				<reportElement x="7" y="145" width="270" height="20" uuid="bee801d4-ca9a-40cf-a554-5040e00c915d"/>
 				<textElement>
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Datos Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="145" width="270" height="20" uuid="d284187b-49e5-4fb9-b238-010941ad7618"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Datos Radiografías]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="256" width="572" height="16" backcolor="#CCCCCC" uuid="6b55f803-0a8b-4cfd-b3b8-15bec2ac8fda"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="257" width="241" height="20" uuid="e097f6cc-5630-4e03-8351-5d20ce37b462"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Imágenes]]></text>
 			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="13" y="477" width="248" height="139" uuid="2ffd5b0e-cab3-434b-9e67-334ab8c04e4a"/>
+				<imageExpression><![CDATA[$P{image1}]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="13" y="307" width="248" height="139" uuid="0e18179c-b124-456e-95e6-8a7a53299623"/>
+				<imageExpression><![CDATA[$P{image0}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="12" y="350" width="241" height="100" uuid="bbf23bac-fff2-437f-82cf-348b44796cfc"/>
-				<box>
-					<pen lineWidth="0.25" lineStyle="Dashed"/>
-					<topPen lineWidth="0.25" lineStyle="Dashed"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed"/>
-				</box>
-				<text><![CDATA[image here (pending)]]></text>
+				<reportElement x="282" y="257" width="289" height="20" uuid="f768922d-76d3-4d9b-92f3-ead2f9489f4e"/>
+				<textElement>
+					<font fontName="Roboto-Regular" size="9" isBold="true" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Diagnóstico Radiográfico]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="12" y="450" width="241" height="112" uuid="5649e700-ef56-4f65-93fd-94837c5f4e49"/>
-				<box>
-					<pen lineWidth="0.25" lineStyle="Dashed"/>
-					<topPen lineWidth="0.25" lineStyle="Dashed"/>
-					<leftPen lineWidth="0.25" lineStyle="Dashed"/>
-					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
-					<rightPen lineWidth="0.25" lineStyle="Dashed"/>
-				</box>
-				<text><![CDATA[image here (pending)]]></text>
-			</staticText>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="16" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="33" splitType="Stretch">
 			<line>
-				<reportElement x="12" y="10" width="549" height="1" uuid="fd9900b8-c396-4d23-a098-5ce22411074d"/>
+				<reportElement x="334" y="658" width="180" height="1" uuid="bbe5f67e-6209-4b7b-8651-99a10a1b9b17">
+					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
+				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="12" y="11" width="549" height="19" uuid="6c268f87-8222-4639-af9e-04737a03650a"/>
-				<text><![CDATA[Summary...about this app, sitron]]></text>
+				<reportElement x="334" y="659" width="180" height="20" uuid="d18f4f7c-2af2-467a-9ba3-4320f33ca972">
+					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Firma Radiólogo]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="334" y="671" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="6ecb84c5-4bd5-4160-954b-5e003095a8c0">
+					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="685" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="49c65371-4824-4606-b6f7-0a20ee352578">
+					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getRut()]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Bottom">
+				<reportElement x="316" y="596" width="216" height="63" uuid="d34d559b-8b75-48e1-ac68-ea6383ad341a">
+					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
+			</image>
 		</band>
-	</pageFooter>
-	<summary>
-		<band height="16" splitType="Stretch"/>
-	</summary>
+	</detail>
 </jasperReport>
