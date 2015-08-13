@@ -5,9 +5,15 @@
  */
 package com.sitron.reports;
 
+import com.sitron.persistence.entities.Instance;
 import com.sitron.persistence.entities.StudyCase;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +38,19 @@ import net.sf.jasperreports.engine.util.JRProperties;
 public class ReportsManager {
 
     private static JasperReport jasperCompiledFile;
+    private static JasperReport jasperCompiledFileP2;
 
     public static byte[] createInformePdf(StudyCase caso) {
+
+        /**
+         * Solo para poder ver el reporte de 2 paginas
+         */
+//        if ((caso.getImages().size() < 3) && (caso.getImages().size() > 0)) {
+//            while (caso.getImages().size() < 8) {
+//                caso.getImages().add(caso.getFirstImage());
+//            }
+//        }
+
         JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", true);
         try {
             if (jasperCompiledFile == null) {
@@ -43,30 +60,83 @@ public class ReportsManager {
 
             Map parameters = new HashMap();
             parameters.put("studyCase", caso);
+            parameters.put("images_total", caso.getImages().size());
+            for (int i = 0; i < caso.getImages().size(); i++) {
+                if (i >= 2) {
+                    break;
+                }
+                try {
+                    parameters.put("image" + i, getImageInputStream(caso.getImages().get(i)));
+                } catch (IOException ex) {
+                    Logger.getLogger(ReportsManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (caso.getImages().size() <= 2) {
+                parameters.put("signature", new ByteArrayInputStream(caso.getAssignee().getSignature()/*byte*/));
+            }
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperCompiledFile, parameters, new JREmptyDataSource());
-            return createPdfFromJasper(jasperPrint);
+
+            if (caso.getImages().size() > 2) {
+                if (jasperCompiledFileP2 == null) {
+                    URL urlP2 = ReportsManager.class.getClassLoader().getResource("informe_p2.jasper");
+                    jasperCompiledFileP2 = (JasperReport) JRLoader.loadObject(urlP2);
+                }
+
+                parameters = new HashMap();
+                parameters.put("studyCase", caso);
+                parameters.put("images_total", caso.getImages().size());
+                try {
+                    for (int i = 2; i < caso.getImages().size(); i++) {
+                        parameters.put("image" + i, getImageInputStream(caso.getImages().get(i)));
+                    }
+                    parameters.put("signature", new ByteArrayInputStream(caso.getAssignee().getSignature()/*byte*/));
+                } catch (IOException ex) {
+                    Logger.getLogger(ReportsManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                JasperPrint jasperPrintP2 = JasperFillManager.fillReport(jasperCompiledFileP2, parameters, new JREmptyDataSource());
+                jasperPrint.addPage(jasperPrintP2.getPages().get(0));
+            }
+            return createPdfFromJasper(jasperPrint, caso.getPatientFk().getPatPName(), caso.getSubject());
 
 //            InputStream in = new ByteArrayInputStream(bytes);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (JRException | IOException ex) {
             Logger.getLogger(ReportsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("ERROR ON JASPER REPORT CREATION!");
         return null;
     }
 
+    private static InputStream getImageInputStream(Instance image) throws IOException, MalformedURLException {
+        //for (Instance image : caso.getImages()) {
+        String strUrl = "http://www.godesk.cl:8089/dcm4chee-arc/wado/DCM4CHEE?requestType=WADO&studyUID="
+                + image.getSeriesFk().getStudyFk().getStudyIuid() + "&seriesUID="
+                + image.getSeriesFk().getSeriesIuid() + "&objectUID=" + image.getSopIuid();
+        URL url = new URL(strUrl);
+        InputStream in = new BufferedInputStream(url.openStream());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        int n = 0;
+        while (-1 != (n = in.read(buf))) {
+            out.write(buf, 0, n);
+        }
+        out.close();
+        in.close();
+        byte[] response = out.toByteArray();
+        InputStream inpict = new ByteArrayInputStream(response);
+        return inpict;
+    }
 
-
-    private static byte[] createPdfFromJasper(JasperPrint jasperPrint) throws IOException, JRException {
+    private static byte[] createPdfFromJasper(JasperPrint jasperPrint, String patientName, String subject) throws IOException, JRException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         JRExporter exporter = new JRPdfExporter();
         //exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "ISO-8859-15");
-        exporter.setParameter(JRPdfExporterParameter.METADATA_TITLE, "Documento generado por Jonathan Loyola - www.godesk.cl");
-        exporter.setParameter(JRPdfExporterParameter.METADATA_SUBJECT, "Documento generado por GoDesk - www.godesk.cl");
+        exporter.setParameter(JRPdfExporterParameter.METADATA_TITLE, "Informe radiologico - " + patientName);
+        exporter.setParameter(JRPdfExporterParameter.METADATA_SUBJECT, subject);
         exporter.setParameter(JRPdfExporterParameter.METADATA_KEYWORDS, "");
-        exporter.setParameter(JRPdfExporterParameter.METADATA_CREATOR, "GoDesk - www.godesk.cl");
-        exporter.setParameter(JRPdfExporterParameter.METADATA_AUTHOR, "GoDesk - www.godesk.cl");
+        exporter.setParameter(JRPdfExporterParameter.METADATA_CREATOR, "Sitron ver. 1.0 - powered by www.godesk.cl");
+        exporter.setParameter(JRPdfExporterParameter.METADATA_AUTHOR, "Sitron ver. 1.0 - powered by www.godesk.cl");
         //exporter.setParameter(JRPdfExporterParameter.PERMISSIONS,new Integer(PdfWriter.ALLOW_PRINTING | PdfWriter.ALLOW_COPY) );
         //TODO: ver propiedad para no copiar
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
