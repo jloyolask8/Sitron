@@ -30,6 +30,8 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRProperties;
+import org.apache.commons.lang3.StringUtils;
+import org.olap4j.impl.Base64;
 
 /**
  *
@@ -50,7 +52,6 @@ public class ReportsManager {
 //                caso.getImages().add(caso.getFirstImage());
 //            }
 //        }
-
         JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", true);
         try {
             if (jasperCompiledFile == null) {
@@ -71,8 +72,18 @@ public class ReportsManager {
                     Logger.getLogger(ReportsManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
             if (caso.getImages().size() <= 2) {
-                parameters.put("signature", new ByteArrayInputStream(caso.getAssignee().getSignature()/*byte*/));
+                try {
+                    if (caso.getAssignee() != null && !StringUtils.isEmpty(caso.getAssignee().getSignature())) {
+                        final String split = caso.getAssignee().getSignature().split(",")[1];
+                        final byte[] decoded = Base64.decode(split);
+                        parameters.put("signature", new ByteArrayInputStream(decoded));
+                    }
+                } catch (Exception e) {
+                    System.out.println("PROBLEMA CON LA FIRMA");
+                    e.printStackTrace();
+                }
             }
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperCompiledFile, parameters, new JREmptyDataSource());
@@ -90,7 +101,9 @@ public class ReportsManager {
                     for (int i = 2; i < caso.getImages().size(); i++) {
                         parameters.put("image" + i, getImageInputStream(caso.getImages().get(i)));
                     }
-                    parameters.put("signature", new ByteArrayInputStream(caso.getAssignee().getSignature()/*byte*/));
+                    final String split = caso.getAssignee().getSignature().split(",")[1];
+                    final byte[] decoded = Base64.decode(split);
+                    parameters.put("signature", new ByteArrayInputStream(decoded));
                 } catch (IOException ex) {
                     Logger.getLogger(ReportsManager.class.getName()).log(Level.SEVERE, null, ex);
                 }

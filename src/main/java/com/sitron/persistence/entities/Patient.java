@@ -250,7 +250,7 @@ public class Patient implements Serializable {
     }
 
     public String getPatName() {
-        return patName;
+        return this.patName != null ? this.patName.replace("^", ""):"";
     }
 
     public void setPatName(String patName) {
@@ -330,7 +330,7 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
 //        return "Patient[ " + this.patName + " ]";
-        return this.patName != null ? this.patName.replace("^", ""):"";
+        return getPatName();
     }
     
 //     public String getCapitalName() {
