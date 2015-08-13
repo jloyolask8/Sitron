@@ -128,6 +128,9 @@ public class Usuario implements Serializable {
     @Basic
     @Column(name = "email_verified")
     private boolean emailVerified = false;
+    
+    @Size(max = 2147483647)
+    private String signature;
 
     public Usuario() {
         this.rol = "Technical";
@@ -544,6 +547,20 @@ public class Usuario implements Serializable {
      */
     public void setEmailVerified(boolean emailVerified) {
         this.emailVerified = emailVerified;
+    }
+
+    /**
+     * @return the signature
+     */
+    public String getSignature() {
+        return signature;
+    }
+
+    /**
+     * @param signature the signature to set
+     */
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
 }
