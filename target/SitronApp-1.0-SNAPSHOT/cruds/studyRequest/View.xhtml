@@ -566,7 +566,10 @@
                         </h:panelGroup>
 
                         <div class="form-group">
-                            <label for="status" class="col-sm-2 control-label">Descripción</label>
+                            <div class="col-sm-2">
+                                 <label for="status" class="control-label">Informe</label>
+                            </div>
+                           
                             <div class="col-sm-10">
                                 <h:outputText value="#{studyCaseController.selected.informText}" rendered="#{not empty studyCaseController.selected.informText}"/>
                                 <h:outputText value="El radiólogo aun no escribe un informe." rendered="#{empty studyCaseController.selected.informText}"/>

@@ -69,7 +69,7 @@
                                                         <h:selectOneMenu id="patientPk" styleClass="form-control" 
                                                                          required="true" requiredMessage="favor seleccione al paciente" 
                                                                          value="#{studyCaseController.selected.patientFk}" >
-                                                            <p:ajax update="@form studyPk instancePk" listener="#{studyCaseController.handlePatientSelectionOnCreate()}"/> 
+                                                            <p:ajax update="@form instancePk" listener="#{studyCaseController.handlePatientSelectionOnCreate()}"/> 
                                                             <f:selectItems value="#{patientController.itemsAvailableSelectOne}"/>
                                                         </h:selectOneMenu>
                                                         <p:message for="patientPk"/>
@@ -82,11 +82,12 @@
                                                           <h:inputText id="fnac" styleClass="form-control" 
                                                                      required="true" requiredMessage="El dato es requerido"
                                                                      value="#{studyCaseController.selected.patientFk.patBirthdate}"  />
+                                                           <span class="help-block">Formato dd.mm.aaaa</span>
                                                         <h:message for="fnac" errorClass="text-danger"/>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group">
+<!--                                                <div class="form-group">
                                                     <label for="studyPk" class="col-sm-2 control-label">Estudio</label>
                                                     <div class="col-sm-10">
                                                         <h:selectOneMenu id="studyPk" styleClass="form-control" 
@@ -98,7 +99,7 @@
                                                         </h:selectOneMenu>
                                                         <p:message for="studyPk"/>
                                                     </div>
-                                                </div>
+                                                </div>-->
 
 <!--                                                <div class="form-group">
                                                     <label for="seriePk" class="col-sm-2 control-label">Serie</label>
@@ -263,7 +264,7 @@
                                                         <div class="col-sm-10">
                                                             <h:selectOneMenu id="assignee" styleClass="form-control" 
                                                                              value="#{studyCaseController.selected.assignee}" title="#{bundle.CreateStudyCaseTitle_assignee}" >
-                                                                <f:selectItem itemLabel="Sin Asignar (esta tarea estara disponible para todos los radiologos del sistema" itemValue=""/>
+                                                                <f:selectItem itemLabel="Sin Asignar (esta tarea estara disponible para todos los radiologos del sistema)" itemValue=""/>
                                                                 <f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" />
                                                             </h:selectOneMenu>                                </div>
                                                     </div>

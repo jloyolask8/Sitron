@@ -67,7 +67,7 @@
 
                     <li class="dropdown dropdown-fw  #{view.viewId.contains('account') ? 'open selected':''}">
                         <h:commandLink action="/cruds/account">
-                            Cuenta
+                            #{bundle.ViewUsuarioTitle}
                         </h:commandLink>
                         <ul class="dropdown-menu dropdown-menu-fw">
 
@@ -85,7 +85,7 @@
                     <li class="dropdown dropdown-fw  #{view.viewId.contains('faq') ? 'open selected':''}">
                         <h:commandLink 
                             action="/cruds/faq">
-                            <i class="fa fa-life-saver"></i> Ayúda
+                            <i class="fa fa-life-saver"></i> #{bundle.helpTitle}
                         </h:commandLink>
                         <ul class="dropdown-menu dropdown-menu-fw">
 

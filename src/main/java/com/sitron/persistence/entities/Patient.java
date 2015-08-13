@@ -329,7 +329,8 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient[ " + this.patName + " ]";
+//        return "Patient[ " + this.patName + " ]";
+        return this.patName != null ? this.patName.replace("^", ""):"";
     }
     
 //     public String getCapitalName() {

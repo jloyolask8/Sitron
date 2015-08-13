@@ -66,7 +66,7 @@
                                             </h:inputText>
                                             <h:message for="email" errorClass="text-danger"/>
                                             <label>#{bundle.EditUsuarioLabel_email}</label>
-                                            <span class="help-block">Email to contact you</span>
+                                            <span class="help-block">Email mediante el cual nos pondremos en contacto con ud.</span>
                                             <i class="fa fa-envelope"></i>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                                         <p:ajax event="blur" listener="#{UserSessionBean.formateaRut}" update="rut, :mainform:messages"/>
                                                     </h:inputText>
                                                     <label for="rut">Rut</label>
-                                                    <span class="help-block">Identificación: Con puntos y guión.</span>
+                                                    <span class="help-block">Rut con puntos y guión (formato xx.xxx.xxx-x).</span>
                                                 </div>
                                                 <h:message for="rut" errorClass="text-danger"/>
                                             </div>
@@ -129,7 +129,7 @@
                                                     </h:inputText>
                                                     <h:message for="telFijo" errorClass="text-danger"/>
                                                     <label for="telFijo">#{bundle.EditUsuarioLabel_telFijo}</label>
-                                                    <span class="help-block">#{bundle.EditUsuarioLabel_telFijo}</span>
+                                                    <span class="help-block">Formato: 02-23456789</span>
                                                     <i class="fa fa-phone"></i>
                                                 </div>
                                             </div>
@@ -144,18 +144,24 @@
                                                     </h:inputText>
                                                     <h:message for="telMovil" errorClass="text-danger"/>
                                                     <label for="telMovil">#{bundle.EditUsuarioLabel_telMovil}</label>
-                                                    <span class="help-block">#{bundle.EditUsuarioLabel_telMovil}</span>
+                                                    <span class="help-block">Formato: 09-83456789</span>
                                                     <i class="fa fa-mobile-phone"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="form-group form-md-line-input has-info">
+                                                <div class="input-icon right">
+                                                 <h:inputTextarea id="aboutMe" value="#{UserSessionBean.current.aboutMe}" styleClass="form-control" />
+                                                    <h:message for="aboutMe" errorClass="text-danger"/>
+                                                    <label for="aboutMe">Firma</label>
+                                                   <span class="help-block">Firma en pie de página.</span>
+                                                    <i class="fa fa-info-circle"></i>
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group form-md-line-input form-md-floating-label">
-                                        <h:inputTextarea id="aboutMe" value="#{UserSessionBean.current.aboutMe}" styleClass="form-control" rows="3"/>
-                                        <label for="aboutMe">Sobre mí</label>
-                                        <span class="help-block">Una breve descripción de quien es ud.</span>
-                                    </div>
+                                 
 
 
                                 </div>
@@ -227,9 +233,9 @@
 
                                             <h:selectOneMenu id="rol" styleClass="form-control"  value="#{UserSessionBean.current.rol}"
                                                              required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_rol}">
-                                                <f:selectItem itemLabel="Technical" itemValue="Technical"></f:selectItem>
-                                                <f:selectItem itemLabel="Radiologist" itemValue="Radiologist"></f:selectItem>
-                                                <f:selectItem itemLabel="System Admin" itemValue="admin"></f:selectItem>
+                                                <f:selectItem itemLabel="#{bundle['Technical']}" itemValue="Technical"></f:selectItem>
+                                                <f:selectItem itemLabel="#{bundle['Radiologist']}" itemValue="Radiologist"></f:selectItem>
+                                                <f:selectItem itemLabel="#{bundle['admin']}" itemValue="admin"></f:selectItem>
                                             </h:selectOneMenu>
 
                                             <h:message for="rol" errorClass="text-danger"/>
