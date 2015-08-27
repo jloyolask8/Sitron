@@ -100,6 +100,15 @@
                                                         <strong>  <h:outputText value="#{(empty studyCaseController.selected.description) ? 'sin descripción':studyCaseController.selected.description}" /> </strong>
                                                     </div>
                                                 </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="text-muted"><small><h:outputText value="Diente"/></small></label>
+                                                    <div class="input-group">
+                                                        <strong>  <h:outputText value="#{studyCaseController.selected.piezasDent}" /> </strong>
+                                                    </div>
+                                                </div>
+                                                
+                                                
 
                                                 <div class="form-group">
                                                     <label class="text-muted"><small><h:outputText value="#{bundle.ViewStudyCaseLabel_rxType}"/></small></label>
@@ -446,7 +455,7 @@
                                                 <div class="form-group last">
                                                     <label class="control-label col-md-2">Informe</label>
                                                     <div class="col-md-10">
-                                                        <h:inputTextarea id="informe" value="#{studyCaseController.selected.informText}" rows="8"
+                                                        <p:inputTextarea id="informe" value="#{studyCaseController.selected.informText}" rows="8"
                                                                          styleClass="form-control" required="true" requiredMessage="Favor ingrese el informe"/>
                                                         <p:message for="informe"/>
                                                     </div>
@@ -500,12 +509,6 @@
 
 
 
-
-                            <h3><h:outputText value="#{studyCaseController.selected.description}" /></h3>
-
-                            <hr/>
-                            
-                            <p><h:outputText value="#{studyCaseController.selected.piezasDent}" /></p>
 
 
                         </div>

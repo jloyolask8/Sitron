@@ -110,7 +110,7 @@
                                     <li class="page-scroll">
                                         <h:outputText value="Hi, #{UserSessionBean.current.nombres}!"
                                               rendered="#{(not empty UserSessionBean) and UserSessionBean.isValidatedSession()}"/>
-                                        <h:commandLink action="/cruds/dashboard?faces-redirect=true" value="DASHBOARD"
+                                        <h:commandLink action="/cruds/dashboard?faces-redirect=true" value="Tablero de Gestión"
                                                        rendered="#{(not empty UserSessionBean) and UserSessionBean.isValidatedSession()}"/>
                                     </li>
                             </ul>

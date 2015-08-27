@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informe" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="6b1d1296-ae77-40da-9002-5af4b0dfaaaa">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -200,13 +200,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getPiezasDent()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
 				<reportElement x="355" y="161" width="201" height="20" uuid="a5347711-1b65-46d3-aa64-d2fd56932a76"/>
 				<textElement>
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Fecha: "+(($P{studyCase}.getInformedAt() != null) ?
-    $P{studyCase}.getInformedAt() : "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{studyCase}.getInformedAt()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="76" y="177" width="201" height="20" uuid="85f4e256-78a3-4959-8b71-22a70f7672e8"/>
@@ -242,13 +241,6 @@
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getCreatedByUser().getCapitalName()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="76" y="130" width="210" height="20" uuid="56bb70a6-4ad0-4cb4-9de1-ccd6f53bee3e"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{studyCase}.getPriority().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="76" y="114" width="210" height="20" uuid="cf916546-8e1c-42eb-8fb4-f455191dc695"/>
@@ -313,14 +305,7 @@
 				<textElement>
 					<font fontName="Roboto-Regular" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["???"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="364" y="242" width="201" height="20" uuid="43ef9336-0b47-4b93-8941-f681dde5b722"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["???"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{studyCase}.getDescription()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="355" y="50" width="223" height="20" uuid="531d0fcd-419d-424a-9c93-a4bea1d2e324"/>
@@ -342,13 +327,6 @@
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="355" y="130" width="212" height="20" uuid="337b6125-54de-48d5-b31f-11f4a144acfa"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{studyCase}.getPriority().getName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="355" y="81" width="223" height="20" uuid="2ae9909f-dbfb-4998-a074-c6aae86a3a7f"/>
@@ -431,13 +409,6 @@
 				<text><![CDATA[Rut:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="7" y="130" width="69" height="20" uuid="296a8321-1036-4aa3-9804-b0100e2e6340"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Prioridad:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="286" y="18" width="58" height="20" uuid="c4e5739b-377d-446f-8455-02fcc1001ce7"/>
 				<textElement>
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
@@ -464,13 +435,6 @@
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Nivel:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="286" y="130" width="69" height="20" uuid="d01c3de9-c90c-4059-b480-28394ed206c5"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Prioridad:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="286" y="98" width="58" height="20" uuid="a0b980b5-d1c9-469b-a7cc-7f66c1651803"/>
@@ -534,13 +498,6 @@
 					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Piezas:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="286" y="242" width="78" height="20" uuid="1fd40af9-84a8-48b0-829f-ecee4cc752c4"/>
-				<textElement>
-					<font fontName="Roboto-Regular" size="9" isUnderline="false" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="286" y="226" width="78" height="20" uuid="db845248-6eaf-40e0-8c3f-6a041d9cc894"/>
@@ -612,17 +569,8 @@
 					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
 				</reportElement>
 			</line>
-			<staticText>
-				<reportElement x="334" y="659" width="180" height="20" uuid="d18f4f7c-2af2-467a-9ba3-4320f33ca972">
-					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Firma Radiólogo]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="334" y="671" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="6ecb84c5-4bd5-4160-954b-5e003095a8c0">
+				<reportElement x="334" y="661" width="180" height="20" forecolor="#000000" backcolor="#000000" uuid="6ecb84c5-4bd5-4160-954b-5e003095a8c0">
 					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -631,7 +579,7 @@
 				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="334" y="685" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="49c65371-4824-4606-b6f7-0a20ee352578">
+				<reportElement x="334" y="675" width="180" height="20" forecolor="#000000" backcolor="#000000" uuid="49c65371-4824-4606-b6f7-0a20ee352578">
 					<printWhenExpression><![CDATA[new java.lang.Boolean($P{images_total} <= 2)]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">

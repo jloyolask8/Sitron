@@ -16,13 +16,13 @@
             <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
             <link href="#{facesContext.externalContext.requestContextPath}/resources/css/signature-pad.css" rel="stylesheet"/>
         </ui:define>
-        
+
         <ui:define name="scripts">
             <script src="#{facesContext.externalContext.requestContextPath}/resources/js/signature_pad.min.js" type="text/javascript"></script>
             <script src="#{facesContext.externalContext.requestContextPath}/resources/js/signature_pad_app.js" type="text/javascript"></script>
 
         </ui:define>
-            
+
         <ui:define name="body">
 
             <h:form id="form">
@@ -40,10 +40,13 @@
                                 <a data-toggle="tab" href="#tab_2-2">
                                     <i class="fa fa-picture-o"></i> Change Avatar </a>
                             </li>
-                            <li>
-                                <a data-toggle="tab" href="#tab_3-3">
-                                    <i class="fa fa-lock"></i> Cambiar Firma </a>
-                            </li>
+                            <h:panelGroup layout="block" rendered="#{UserSessionBean.current.radiologist}">
+                                <li>
+                                    <a data-toggle="tab" href="#tab_3-3">
+                                        <i class="fa fa-lock"></i> Cambiar Firma </a>
+                                </li>
+                            </h:panelGroup>
+
 
                             <li>
                                 <a data-toggle="tab" href="#tab_4-4">
@@ -137,7 +140,7 @@
                                                     </h:inputText>
                                                     <h:message for="telFijo" errorClass="text-danger"/>
                                                     <label for="telFijo">#{bundle.EditUsuarioLabel_telFijo}</label>
-                                                    <span class="help-block">Formato: 02-23456789</span>
+                                                    <span class="help-block">Formato: +56 2 23456789</span>
                                                     <i class="fa fa-phone"></i>
                                                 </div>
                                             </div>
@@ -152,7 +155,7 @@
                                                     </h:inputText>
                                                     <h:message for="telMovil" errorClass="text-danger"/>
                                                     <label for="telMovil">#{bundle.EditUsuarioLabel_telMovil}</label>
-                                                    <span class="help-block">Formato: 09-83456789</span>
+                                                    <span class="help-block">Formato: +56 9 83456789</span>
                                                     <i class="fa fa-mobile-phone"></i>
                                                 </div>
                                             </div>
@@ -168,24 +171,15 @@
                                             <i class="fa fa-info-circle"></i>
                                         </div>
                                     </div>
-                                    
-                                    <h:inputHidden id="signature" value="#{UserSessionBean.current.signature}"/>
 
-                                    <div id="signature-pad" class="m-signature-pad">
-                                        <div class="m-signature-pad--body">
-                                            <canvas></canvas>
-                                        </div>
-                                        <div class="m-signature-pad--footer">
-                                            <div class="description">Firmar arriba</div>
-                                            <button class="button clear" data-action="clear">Borrar</button>
-                                            <button class="button save" data-action="save">Guardar firma</button>
-                                        </div>
-                                    </div>
-                                    
+                                    <p:outputPanel id="output" rendered="#{UserSessionBean.current.radiologist}">
+                                        <h:outputText rendered="#{not empty UserSessionBean.current.signature}" style="font-size:24px;display:block" value="Tu Firma" />
+                                        <img src="#{UserSessionBean.current.signature}" />
+                                    </p:outputPanel>
 
                                 </div>
-                                
-                                
+
+
                                 <div class="form-actions noborder">
                                     <br/><br/>
                                     <h:commandLink action="#{UserSessionBean.updateUsuario()}" 
@@ -223,29 +217,74 @@
                                     </div>
                                     <div class="clearfix margin-top-10">
                                         <span class="label label-danger">
-                                            NOTE! </span>
+                                            NOTA!   </span>
                                         <span>
-                                            Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
+                                            (funcion no disponible en beta) </span>
                                     </div>
                                 </div>
                                 <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn green">
-                                        Submit </a>
-                                    <a href="javascript:;" class="btn default">
-                                        Cancel </a>
+                                    <div class="form-actions noborder">
+                                        <br/><br/>
+                                        <h:commandLink action="#{UserSessionBean.updateUsuario()}" 
+                                                       styleClass="btn green" 
+                                                       onclick="jQuery(this).addClass('ui-state-disabled');
+                                                               jQuery(this).children().addClass('fa fa-refresh fa-spin')">
+                                            <i class="fa fa-disk"></i> Guardar
+                                        </h:commandLink>
+
+                                        <a href="javascript:;" class="btn default">
+                                            Cancelar </a>
+                                    </div>
                                 </div>
                             </div>
                             <div id="tab_3-3" class="tab-pane">
+                                <div class="form-body">
+                                    
+                               
                                 <div class="form-group">
-                                    <label class="control-label">Firma actual</label>
+                                    <label class="control-label">Cambiar Firma</label>
                                 </div>
 
+                                <h:inputHidden id="signature" value="#{UserSessionBean.current.signature}"/>
+                                <h:panelGroup layout="block" rendered="#{UserSessionBean.current.radiologist}">
+                                    
+                                   <div id="signature-pad" class="m-signature-pad">
+                                        <div class="m-signature-pad--body">
+                                            <canvas></canvas>
+                                        </div>
+                                        <div class="m-signature-pad--footer">
+                                            <div class="description">Firmar arriba</div>
+                                            <button class="button clear" data-action="clear">Borrar</button>
+                                            <button class="button save" data-action="save">Guardar firma</button>
+                                        </div>
+                                    </div>
+                                    
+                                </h:panelGroup>
+                                
+                                
+
+
+
                                 <div class="margin-top-10">
-                                    <a href="javascript:;" class="btn green">
-                                        Change  </a>
-                                    <a href="javascript:;" class="btn default">
-                                        Cancel </a>
+
+                                    <span class="label label-danger">
+                                        NOTA!   </span>
+                                    <span>
+                                        Se sugiere que la firma se escriba desde un dispositivo touch (Tablet o Ipad idealmente)
+                                    </span>
+
+                                    <br/>
+                                    <h:commandLink action="#{UserSessionBean.updateUsuario()}" 
+                                                   styleClass="btn green" 
+                                                   onclick="jQuery(this).addClass('ui-state-disabled');
+                                                           jQuery(this).children().addClass('fa fa-refresh fa-spin')">
+                                        <i class="fa fa-disk"></i> Guardar
+                                    </h:commandLink>
+
+
                                 </div>
+                                
+                                 </div>
                             </div>
                             <div id="tab_4-4" class="tab-pane">
 
