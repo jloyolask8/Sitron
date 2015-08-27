@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informe" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="6b1d1296-ae77-40da-9002-5af4b0dfaaaa">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="441"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -107,33 +107,6 @@
 					<printWhenExpression><![CDATA[new java.lang.Boolean($P{image2} != null)]]></printWhenExpression>
 				</reportElement>
 			</line>
-			<staticText>
-				<reportElement x="334" y="629" width="180" height="20" uuid="d18f4f7c-2af2-467a-9ba3-4320f33ca972">
-					<printWhenExpression><![CDATA[new java.lang.Boolean($P{image2} != null)]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Firma Radiólogo]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="334" y="641" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="6ecb84c5-4bd5-4160-954b-5e003095a8c0">
-					<printWhenExpression><![CDATA[new java.lang.Boolean($P{image2} != null)]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="334" y="655" width="180" height="20" forecolor="#5182BB" backcolor="#5182BB" uuid="49c65371-4824-4606-b6f7-0a20ee352578">
-					<printWhenExpression><![CDATA[new java.lang.Boolean($P{image2} != null)]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getRut()]]></textFieldExpression>
-			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="309" y="34" width="248" height="139" uuid="beb49187-bd2e-42b0-9c96-44baf23f7c4a"/>
 				<imageExpression><![CDATA[$P{image3}]]></imageExpression>
@@ -154,6 +127,20 @@
 				<reportElement x="313" y="565" width="216" height="63" uuid="8205abe7-d040-460a-a941-b00381a69f12"/>
 				<imageExpression><![CDATA[$P{signature}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="334" y="631" width="180" height="20" forecolor="#000000" backcolor="#000000" uuid="b67bdbdd-c96f-4740-b180-88e351a821bd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getCapitalName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="645" width="180" height="20" forecolor="#000000" backcolor="#000000" uuid="0607b049-3ced-4dcf-8a10-78baee8c350f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Roboto-Regular" size="9" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studyCase}.getAssignee().getRut()]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
