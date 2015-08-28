@@ -177,6 +177,17 @@ public class StudyCaseController extends AbstractManagedBean<StudyCase> implemen
 
         return prepareList();
     }
+    
+    public String destroy(StudyCase entity){
+         try {
+            getJpaController().remove(StudyCase.class, entity.getIdRequest());
+            JsfUtil.addSuccessMessage("Tarea eliminada exitósamente.");
+            recreatePagination();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+         return getListPage();
+    }
 
     private void performDestroy() {
         try {

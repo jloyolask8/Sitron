@@ -250,7 +250,7 @@ public class Patient implements Serializable {
     }
 
     public String getPatName() {
-        return this.patName != null ? this.patName.replace("^", ""):"";
+        return this.patName != null ? this.patName.replace("^^^", "").replace("^", ", "):"";
     }
 
     public void setPatName(String patName) {

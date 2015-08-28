@@ -233,6 +233,10 @@ public class StudyCase implements Serializable {
     public String getInformText() {
         return informText;
     }
+    
+    public String getInformTextHtml() {        
+        return informText.replace("\n", "<br/>").replace("\r", "<br/>");
+    }
 
     public void setInformText(String informText) {
         this.informText = informText;

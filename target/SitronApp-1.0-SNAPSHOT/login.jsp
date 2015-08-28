@@ -70,6 +70,7 @@
                 dict: 'es',
                 loginAfterSignup: false,
                 rememberLastLogin: false,
+                socialBigButtons: true,
                 authParams: {
                     scope: 'openid profile'
                     , state: '${state}'

@@ -32,30 +32,30 @@
                         <ul class="ver-inline-menu tabbable margin-bottom-10">
                             <li class="active">
                                 <a data-toggle="tab" href="#tab_1-1">
-                                    <i class="fa fa-cog"></i> Informacion personal </a>
+                                    <i class="fa fa-cog"></i>Datos personales </a>
                                 <span class="after">
                                 </span>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#tab_2-2">
-                                    <i class="fa fa-picture-o"></i> Change Avatar </a>
+                                    <i class="fa fa-picture-o"></i>Change Avatar </a>
                             </li>
                             <h:panelGroup layout="block" rendered="#{UserSessionBean.current.radiologist}">
                                 <li>
-                                    <a data-toggle="tab" href="#tab_3-3">
-                                        <i class="fa fa-lock"></i> Cambiar Firma </a>
+                                    <a data-toggle="tab" href="#tab_3-3" onmouseout="resizeCanvas();" >
+                                        <i class="fa fa-lock"></i>Cambiar Firma </a>
                                 </li>
                             </h:panelGroup>
 
 
                             <li>
                                 <a data-toggle="tab" href="#tab_4-4">
-                                    <i class="fa fa-eye"></i> Settings </a>
+                                    <i class="fa fa-eye"></i>Settings </a>
                             </li>
 
                             <li>
                                 <a data-toggle="tab" href="#tab_5-5">
-                                    <i class="fa fa-eye"></i> Métodos de Pago </a>
+                                    <i class="fa fa-eye"></i>Métodos de Pago </a>
                             </li>
                         </ul>
                         <br/>
@@ -171,12 +171,12 @@
                                             <i class="fa fa-info-circle"></i>
                                         </div>
                                     </div>
-
+                                    <div class="form-group col-sm-12">
                                     <p:outputPanel id="output" rendered="#{UserSessionBean.current.radiologist}">
                                         <h:outputText rendered="#{not empty UserSessionBean.current.signature}" style="font-size:24px;display:block" value="Tu Firma" />
-                                        <img src="#{UserSessionBean.current.signature}" />
+                                        <img width="100%" src="#{UserSessionBean.current.signature}" />
                                     </p:outputPanel>
-
+</div>
                                 </div>
 
 
@@ -216,10 +216,8 @@
                                         </div>
                                     </div>
                                     <div class="clearfix margin-top-10">
-                                        <span class="label label-danger">
-                                            NOTA!   </span>
-                                        <span>
-                                            (funcion no disponible en beta) </span>
+                                        <span class="label label-danger">función no disponible en beta!   </span>
+                                       
                                     </div>
                                 </div>
                                 <div class="margin-top-10">
@@ -243,43 +241,36 @@
                                
                                 <div class="form-group">
                                     <label class="control-label">Cambiar Firma</label>
-                                </div>
+                              
 
                                 <h:inputHidden id="signature" value="#{UserSessionBean.current.signature}"/>
                                 <h:panelGroup layout="block" rendered="#{UserSessionBean.current.radiologist}">
                                     
                                    <div id="signature-pad" class="m-signature-pad">
                                         <div class="m-signature-pad--body">
-                                            <canvas></canvas>
+                                           <canvas width="100%" height="100%"></canvas>
                                         </div>
                                         <div class="m-signature-pad--footer">
                                             <div class="description">Firmar arriba</div>
-                                            <button class="button clear" data-action="clear">Borrar</button>
-                                            <button class="button save" data-action="save">Guardar firma</button>
+                                            <button type="button" class="button clear" data-action="clear">Borrar</button>
+                                            <button  class="button save" data-action="save">Previsualizar firma</button>
                                         </div>
                                     </div>
                                     
                                 </h:panelGroup>
                                 
-                                
+                                  </div>
 
-
+<br/><br/><br/><br/><br/><br/><br/>
 
                                 <div class="margin-top-10">
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                                     <span class="label label-danger">
                                         NOTA!   </span>
                                     <span>
                                         Se sugiere que la firma se escriba desde un dispositivo touch (Tablet o Ipad idealmente)
                                     </span>
-
-                                    <br/>
-                                    <h:commandLink action="#{UserSessionBean.updateUsuario()}" 
-                                                   styleClass="btn green" 
-                                                   onclick="jQuery(this).addClass('ui-state-disabled');
-                                                           jQuery(this).children().addClass('fa fa-refresh fa-spin')">
-                                        <i class="fa fa-disk"></i> Guardar
-                                    </h:commandLink>
 
 
                                 </div>
@@ -373,6 +364,8 @@
 
                                 <!--end profile-settings-->
                                 <div class="margin-top-10">
+                                    
+                                    
 
                                     <h:commandLink action="#{UserSessionBean.updateUsuario()}" 
                                                    styleClass="btn green" 
@@ -384,6 +377,8 @@
 
                                     <a href="javascript:;" class="btn default">
                                         Cancel </a>
+                                    
+                                     <span class="label label-danger">función no disponible en beta!   </span>
                                 </div>
                             </div>
 
@@ -415,7 +410,8 @@
                                     </div>
                                 </div>
 
-
+ <span class="label label-danger">función no disponible en beta!   </span>
+ 
                                 <!--end profile-settings-->
                                 <div class="margin-top-10">
 

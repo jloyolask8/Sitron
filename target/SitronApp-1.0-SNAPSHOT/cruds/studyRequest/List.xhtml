@@ -42,12 +42,7 @@
 
                     <h:dataTable value="#{studyCaseController.items}" var="item" 
                                  styleClass="table table-hover table-light table-responsive">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idRequest}"/>
-                        </h:column>
+                      
 
 
 
@@ -124,54 +119,11 @@
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <div class="task-config">
-                                <div class="task-config-btn btn-group">
-                                    <a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <h:commandLink action="#{studyCaseController.prepareView(item)}"
-                                                           rendered="#{UserSessionBean.current.radiologist}"
-                                                           styleClass="">
-                                                <i class="glyphicon glyphicon-list-alt"></i> Abrir
+                            <h:commandLink action="#{studyCaseController.prepareView(item)}" styleClass="btn btn-primary">
+                                                <i class="glyphicon glyphicon-eye-open"></i> Abrir
                                             </h:commandLink>
-                                        </li>
-
-                                        <li>
-                                            <h:commandLink action="#{studyCaseController.assignMe(item)}" 
-                                                           rendered="#{empty item.assignee and UserSessionBean.current.radiologist}"
-                                                           >
-                                                <i class="glyphicon glyphicon-fire"></i> Asignarme la tarea
-                                            </h:commandLink>
-                                        </li>
-                                        
-                                        <li>
-                                            <h:commandLink action="#{studyCaseController.prepareEdit(item)}"
-                                                           rendered="#{UserSessionBean.current.technical}"
-                                                           styleClass="">
-                                                <i class="glyphicon glyphicon-pencil"></i> Ver
-                                            </h:commandLink>
-                                        </li>
-                                        
-                                       <li>
-                                            <h:commandLink action="#{studyCaseController.destroy}" 
-                                                           rendered="#{UserSessionBean.current.admin}"
-                                                           styleClass="btn-danger">
-                                                <i class="glyphicon glyphicon-remove"></i> Eliminar
-                                            </h:commandLink>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
-                            </div>
-
-
                         </h:column>
+                        
 
 
                     </h:dataTable>

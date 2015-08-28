@@ -251,10 +251,8 @@
                         <!--end col-md-3-->
 
                         <div class="col-sm-7 col-md-8 col-lg-9">
-
-
-
-                            <h:panelGroup layout="block" rendered="#{not empty studyCaseController.selected.images}">
+                            
+                            <h:panelGroup layout="block" rendered="#{not empty studyCaseController.selected.assignee and (not empty studyCaseController.selected.images and UserSessionBean.current.radiologist)}">
                                 <div class="portlet light bg-inverse">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -409,7 +407,34 @@
                                 </div>
                             </h:panelGroup>
 
-                            <h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.radiologist}">
+                            <h:panelGroup layout="block" rendered="#{(empty studyCaseController.selected.assignee and UserSessionBean.current.radiologist)}">
+                                          
+                              
+                                <div class="portlet box blue">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-check"></i>Esta tarea no está asignada, sé el primero en tomarla!
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="portlet-body">
+                                              <h:form styleClass="form-horizontal" >
+                                               <h:commandLink action="#{studyCaseController.assignMe(studyCaseController.selected)}" styleClass="btn btn-primary">
+                                                <i class="glyphicon glyphicon-fire"></i> Asignarme la tarea
+                                            </h:commandLink>
+                                                  
+                                                 
+                                                  
+                                              </h:form>
+                                        </div>
+                                </div>
+                             
+                           
+                            </h:panelGroup>
+                           
+                            
+                            <h:panelGroup layout="block" rendered="#{(UserSessionBean.current.radiologist and not empty studyCaseController.selected.assignee)}">
                                 <div class="portlet box blue">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -440,7 +465,8 @@
                                                     </div>
                                                 </div>
 
-                                                <h:panelGroup layout="block" class="form-group" rendered="#{not empty studyCaseController.selected.informedAt}">
+                                                <h:panelGroup layout="block" class="form-group" 
+                                                              rendered="#{not empty studyCaseController.selected.informedAt}">
                                                     <label class="control-label col-md-2">
                                                         <h:outputText value="#{bundle.ViewStudyCaseLabel_informedAt}"/></label>
                                                     <div class="col-md-10">
@@ -508,22 +534,7 @@
                             </h:panelGroup>
 
 
-
-
-
-                        </div>
-                        <!--end col-md-9-->
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-              <h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
+<h:panelGroup layout="block" rendered="#{UserSessionBean.current.admin or UserSessionBean.current.technical}">
                                 <div class="portlet box blue">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -545,7 +556,16 @@
                                             <div class="form-body">
 
 
-
+                         <div class="form-group">
+                            <div class="col-sm-2 control-label">
+                                 <label for="status" class="control-label">Número de Tarea</label>
+                            </div>
+                           
+                            <div class="col-sm-10">
+                                <h:outputText value="#{studyCaseController.selected.idRequest}" />
+                            </div>
+                        </div>
+                                                
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label">Estatus actual</label>
                             <div class="col-sm-10">
@@ -569,12 +589,13 @@
                         </h:panelGroup>
 
                         <div class="form-group">
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 control-label">
                                  <label for="status" class="control-label">Informe</label>
                             </div>
                            
                             <div class="col-sm-10">
-                                <h:outputText value="#{studyCaseController.selected.informText}" rendered="#{not empty studyCaseController.selected.informText}"/>
+                                <h:outputText value="#{studyCaseController.selected.informTextHtml}" escape="false"
+                                              rendered="#{not empty studyCaseController.selected.informText}"/>
                                 <h:outputText value="El radiólogo aun no escribe un informe." rendered="#{empty studyCaseController.selected.informText}"/>
                             </div>
                         </div>
@@ -589,6 +610,18 @@
                                                                          value="Descargar Informe" >
                                                             <p:fileDownload value="#{studyCaseController.exportarInformeAPDF()}" />
                                                         </p:commandButton>
+                                                        
+                                                         <h:commandLink action="#{studyCaseController.prepareEdit(studyCaseController.selected)}" styleClass="btn btn-primary"
+                                                                             rendered="#{UserSessionBean.current.technical and (UserSessionBean.current eq studyCaseController.selected.createdByUser)}">
+                                                <i class="glyphicon glyphicon-pencil"></i> Editar Solicitud
+                                            </h:commandLink>
+                                                        
+                                                         <h:commandLink action="#{studyCaseController.destroy(studyCaseController.selected)}" 
+                                                           rendered="#{UserSessionBean.current.admin}"
+                                                           styleClass="btn btn-danger">
+                                                <i class="glyphicon glyphicon-remove"></i> Eliminar tarea
+                                            </h:commandLink>
+                                                        
                                                     </div>
                                                 </div>
                         </div>
@@ -604,6 +637,21 @@
               
 
             </h:panelGroup>
+
+
+                        </div>
+                        <!--end col-md-9-->
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+              
 
 
 
